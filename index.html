@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Descend Into Madness</title>
+	<meta charset="utf-8" />
+    <link href="css/app.css" rel="stylesheet" />
+    <script src="js/app.js"></script>
+
+    <script>  
+    </script>
+</head>
+
+<body>
+
+    <div id="game">
+
+
+
+        <div id="instructions">
+            Commands: </br> </br>
+            <u>Descend or D</u> - Go down. </br> </br>
+            <u>Mirror or M</u> - Examine yourself. </br> </br>
+            <u>Fight or F</u> - Fight the enemy on the floor. </br> </br>
+            <u>Investigate or I</u> - Examine the enemy. </br> </br>
+            <u>Rummage or R</u> - Look for items on the floor. </br> </br>
+            <u>Equip or E</u> - Equip new-found item </br> </br>
+            <u>Kill or K</u> - Finish off wounded enemy. </br> </br>
+            <u>Spare or S</u> - Spare the wounded enemy. </br> </br>
+        </div>
+
+        <div id="visuals">
+            <div id="floors"><img id="floor" src="gfx/floors/0.png" alt="1"></div>
+            <div id="enemies"><img id="enemy" src="gfx/enemies/0.png" alt="2" ></div>
+            <div id="items"><img id="item" src="gfx/items/0.png" alt="3"></div>
+        </div>
+
+        <div id="inventory">
+            Inventory: </br> </br>
+            <u>Mirror</u> </br> </br>
+            <u>Cloak</u> - No bonuses. </br> </br>
+            <u>Leather Gloves</u> - No bonuses. </br> </br>
+            <u>No Keys</u></br> </br>
+            <u>No Weapon</u></br> </br>
+            <u>No Shield</u></br> </br>
+            <u>No Potions</u></br> </br>
+            <u>No Accessories</u></br> </br>
+            
+        </div>
+
+        
+        <div id="info">
+            
+            <h1>Descend Into Madness</h1>
+
+        </div>
+
+        <div id="prompt">
+            <input type="text" id="written" placeholder="Click Here">
+            <button type="button" id="proceed">-></button>
+        </div>
+        
+        <video width="0" height="0" id="ambient" controls loop muted="false">
+            <source src="sfx/ambient.mp4" type="video/mp4">
+        </video>
+
+    </div>
+
+</body>
+
+</html>

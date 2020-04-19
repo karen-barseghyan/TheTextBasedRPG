@@ -1,0 +1,181 @@
+
+The game will have three status stats, Morality, Sanity and Health. Morality is determined by choices the player makes, Sanity and Health is lowered by mainly the monsters but also the enviromental hazards.
+The player cannot see the exact value, they can only see messages with using the "Gaze in the mirror" prompt, or "Look in the mirror", basically the game will detect if the word "mirror" is said in the sentence and it will show the messages below made out of three parts.
+First message will be about your health, second message will be about your morality, third message will be about your sanity. Unless your sanity and morality are average, then only one message will appear for both of your stats. The rest of the messages will be about the rest of your stats like strength, dexterity, etc.
+________________________________________________________________
+Morality and Sanity
+________________________________________________________________
+
+Looking at the mirror:
+
+If Morality and Sanity are both 41-59:
+
+There is nothing out of ordinary about your reflection.
+
+_______________________
+
+(The message in caps does not appear, it's a hidden stat change.)
+
+Evil morality:
+
+40-31 - Your face seems to have red stains on it, but they disappear as soon as you blink. *LOWERS SANITY BY 10%, INCREASES ATTACK BY 30%*
+30-21 - There is no question about it, the red stains on your face are blood, you try to rub your eyes with your hand, but it does not help. *LOWERS SANITY BY 10%, INCREASES DEFENSE BY 30%*
+20-11 - Your face is covered in blood, you look down and see your hands are dripping as well, you don't know why, but you just know it's not your blood, as soon as you blink your hands go back to normal. *LOWERS SANITY BY 10%, INCREASES DEXTERITY BY 30%*
+11-1 - Your face is dripping with blood, you look down and so are your hands, you can't accept the reality of it, no matter how hard you claw at your own hand the blood does not go away, no matter how hard you rub your eyes it just makes your eyesight more and more red. *LOWERS HEALTH BY 10%, INCREASES ATTACK BY 30%*
+ 0 - You take a glance at the mirror and quickly look away, but the image is seared into your eyes, it is your tortured soul in hell, you can no longer hold back your true self. *YOUR SANITY IS PERMANENTLY SET AT 0, YOUR ATTACK INCREASES BY 100%*
+
+Good Morality:
+
+60-69 - You take a peak at the mirror and you could've swore you saw a faint halo above your head, for split second, was it a delusion? Regardless, it fuels you with joy. INCREASES SANITY BY 20%.
+70-79 - The halo above your head is bright, the glow feels your heart with determination. INCREASES DEFENSE BY 20%.
+80-89 - The halo is clearly visible, you can even see a pair of wings behind your back. INCREASES DEXTERITY BY 20%.
+90-99 - You can barely see yourself, the holy glow in the mirror is overwhelming you. INCREASES STRENGTH BY 20%.
+100 - You take a glance at the mirror and it almost blinds you, but you clearly saw the image of yourself in heaven, you are no longer afraid of death. IF YOUR SANITY IS BELOW 50, IT RESETS TO 50. YOUR SANITY CAN NO LONGER BE LOWERED.
+
+
+_______________________________
+
+
+Low Sanity (Affects defense, each point in sanity grants additional point of defense.):
+
+40-31 - It's you... with black hollow eyes, your reflection goes back to normal after you blink.
+30-21 - Your eyes are pure black, black ooze is pouring out of them.
+20-11 - You see shadows in the corner of your vision, your face has a twisted grimace.
+10-1 - Your face is no longer human, it feels human in touch but the reflection says otherwise, the shadows have materialized and are visible outside of the mirror as well.
+0 - You are completely insane, the shadows are aggressive towards you and will attack you if you don't escape rooms quick enough, the mirror is cracked.
+
+High Sanity.
+
+60-69 - There is a smile on your face.
+70-79 - You look confident.
+80-89 - Despite being in this situation, you look genuinely happy.
+90-99 - You look like you can take on the entire world.
+100 - Your smile is so smug, it's almost like you like being here.
+
+_______________________________
+Health - starts at 100, lowered by damage and some events.
+_______________________________
+
+
+HEALTH - in the mirror.
+100-91 - You look healthy.
+90-81 - You are slightly bruised.
+80-71 - You have bruises and scratches on you.
+70-61 - You have painful cuts on you.
+60-51 - You are injured and bleeding from your cuts.
+50-41 - You bleed profusely.
+40-31 - You are gravely injured, you suffer from blood loss.
+30-21 - You can barely move, you wonder why you even came here.
+20-11 - Your life flashes before your eyes, the death is near.
+11-1 - You have trouble keeping your eyes open, you feel yourself drifting away into ether.
+0 - You are dead.
+
+HEALTH - examined non-humanoid enemy.
+100-91 - It looks healthy.
+90-81 - It is slightly bruised.
+80-71 - It has bruises and scratches on it.
+70-61 - It has painful cuts on it.
+60-51 - It is injured and bleeding from it's cuts.
+50-41 - It is bleeding profusely.
+40-31 - It is gravely injured, it suffers from blood loss.
+30-21 - It can barely move, it wonders why it even came here.
+20-11 - It's life flashes before it's eyes, the death is near.
+11-1 - It has trouble keeping it's eyes open, it feels itself drifting away into ether.
+0 - It is dead.
+
+HEALTH - examined humanoid enemy.
+100-91 - He looks healthy.
+90-81 - He is slightly bruised.
+80-71 - He has bruises and scratches on it.
+70-61 - He has painful cuts on it.
+60-51 - He is injured and bleeding from his cuts.
+50-41 - He is bleeding profusely.
+40-31 - He is gravely injured, he suffers from blood loss.
+30-21 - He can barely move, he wonders why he even came here.
+20-11 - His life flashes before his eyes, the death is near.
+11-1 - He has trouble keeping his eyes open, he feels himself drifting away into ether.
+0 - He is dead.
+
+
+_______________________________
+Strength - Starts at 50, the player can pick any amount they want, there will be a limit on how many stats they can pick at once, reaching 0 is death, players cannot choose 0.
+_______________________________
+
+
+Strength - you.
+100-91 - You have the power of God.
+90-81 - You have the power of Hercules.
+80-71 - You can destroy anyone.
+70-61 - You have huge muscles.
+60-51 - You have decent power.
+50-41 - You aren't especially strong.
+40-31 - You are slightly weak.
+30-21 - You are very skinny.
+20-11 - You are obviously weak.
+11-1 - You are anemic.
+0 - You are dead.
+
+Strength - examined non-humanoid enemy.
+100-91 - It has the power of God.
+90-81 - It has the power of Hercules.
+80-71 - It can destroy anyone.
+70-61 - It has huge muscles.
+60-51 - It has decent power.
+50-41 - It isn't especially strong.
+40-31 - It is slightly weak.
+30-21 - It is very skinny.
+20-11 - It is obviously weak.
+11-1 - It is anemic.
+0 - It is dead.
+
+Strength - examined humanoid enemy.
+100-91 - He has the power of God.
+90-81 - He has the power of Hercules.
+80-71 - He can destroy anyone.
+70-61 - He has huge muscles.
+60-51 - He has decent power.
+50-41 - He isn't especially strong.
+40-31 - He is slightly weak.
+30-21 - He is very skinny.
+20-11 - He is obviously weak.
+11-1 - He is anemic.
+0 - He is dead.
+_______________________________
+Dexterity - Starts at 50, the player can pick any amount they want, there will be a limit on how many stats they can pick at once, reaching 0 is death, players cannot choose 0.
+_______________________________
+
+
+Dexterity -
+100-91 - You are like the wind.
+90-81 - You are the definition of finesse.
+80-71 - Nimble doesn't even begin to describe you.
+70-61 - You are quite smooth.
+60-51 - Your tact is above average.
+50-41 - You are averagely built.
+40-31 - You aren't very fast.
+30-21 - You lack aristry.
+20-11 - You are slow.
+11-1 - You might as well be in a wheelchair.
+0 - You are dead
+
+*Insert enemy and humanoid enemy examinations*
+
+_______________________________
+Defense - Starts at 50, the player can pick any amount they want, there will be a limit on how many stats they can pick at once, reaching 0 is death, players cannot choose 0.
+_______________________________
+
+
+Defense -
+100-91 - You are indestructible.
+90-81 - Pretty much nothing can even scratch you.
+80-71 - You are built like a tank.
+70-61 - You have a solid build.
+60-51 - You're pretty durable.
+50-41 - Your build is pretty average.
+40-31 - You can't survive a lot.
+30-21 - You are quite frail.
+20-11 - It doesn't take much to take you down.
+11-1 - A slight breeze will knock you down.
+0 - You are dead
+
+*Insert enemy and humanoid enemy examinations*
