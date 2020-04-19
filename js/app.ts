@@ -3,6 +3,10 @@ window.onload = () => {
  
    
     let ambient = <HTMLVideoElement> document.getElementById("ambient"); 
+    let floor = 0;
+    let enemy = 0;
+    let item = 0;
+    let move = 0;
 
     window.onmousedown = function(mouseEvent) {
         ambient.play();
@@ -10,6 +14,7 @@ window.onload = () => {
 
     const button = document.querySelector("button");
     button?.addEventListener("click", promptCheck);
+
 
     
     let movingQuotes =[
@@ -37,8 +42,8 @@ window.onload = () => {
         "You are surrounded by graves. ",
         "You are in deserted ruins. ",
         "You are in a dusty stronghold. ",
-        "You see a dark castle. ",
-        "You see an underground river. ",
+        "You are next to a dark castle. ",
+        "You are near an underground river. ",
      ]
 
     let actions =[
@@ -52,19 +57,21 @@ window.onload = () => {
         "You equip ",
         "You decided to ",
         "You also see ",
+        "You are in front of ",
+        "On the ground there is ",
     ]
 
     let enemyForm =[
         "nobody. ",
         "a noble Knight. ",
         "a blood-covered Vampire. ",
-        "a brave Adventurer. ",
+        "a brave Mercenary. ",
         "a rotting Zombie. ",
         "an evil Demon. ",
         "a horrific Nightmare. ",
-        "a huge Beast. ",
+        "a feral Beast. ",
         "a beautiful Elf. ",
-        "a spooky scary Skeleton. ",
+        "a rattling Skeleton. ",
     ]
     
     //To Do: enemy stats.
@@ -78,8 +85,8 @@ window.onload = () => {
         "a Health Potion. ",
         "a stray Soul. ",
         "a Sanity Potion. ",
-        "a tough Helmet. ",
-        "durable Gloves. ",
+        "a tough set of Armor. ",
+        "a pair of durable Gloves. ",
         ]
 
     let defensePlayer = [
@@ -112,23 +119,44 @@ window.onload = () => {
             setFloor();
           }
 
+          if (prompt.toLowerCase()=="investigate" || prompt.toLowerCase()=="i"){
+            showEnemy()
+          }
+
+          if (prompt.toLowerCase()=="rummage" || prompt.toLowerCase()=="r"){
+            showItem()
+          }
+
           prompter.focus();
         return prompt;
       }
 
       function setFloor() {
 
-        let floor = Math.floor(Math.random() * 9) + 1;
-        let enemy = Math.floor(Math.random() * 9) + 1;
-        let item = Math.floor(Math.random() * 9) + 1;
-        let move = Math.floor(Math.random() * 12) + 1;
+        floor = Math.floor(Math.random() * 9) + 1;
+        enemy = Math.floor(Math.random() * 9) + 1;
+        item = Math.floor(Math.random() * 9) + 1;
+        move = Math.floor(Math.random() * 12) + 1;
         (<HTMLInputElement>document.getElementById('floor')).src = "gfx/floors/"+floor+".png";
-        (<HTMLInputElement>document.getElementById('enemy')).src = "gfx/enemies/"+enemy+".png";
-        (<HTMLInputElement>document.getElementById('item')).src = "gfx/items/"+item+".png";
+        (<HTMLInputElement>document.getElementById('item')).src = "gfx/items/0.png";
+        (<HTMLInputElement>document.getElementById('enemy')).src = "gfx/enemies/0.png";
         (<HTMLInputElement>document.getElementById('info')).innerHTML = movingQuotes[move] + movingPlace[floor] + actions[0] + enemyForm[enemy] + actions[9] + itemForm[item];
+
+      }
+        function showEnemy() {
+            (<HTMLInputElement>document.getElementById('enemy')).src = "gfx/enemies/"+enemy+".gif";
+            (<HTMLInputElement>document.getElementById('item')).src = "gfx/items/0.png";
+            (<HTMLInputElement>document.getElementById('info')).innerHTML = actions[10] + enemyForm[enemy];  
+        }
+
+        function showItem() {
+            (<HTMLInputElement>document.getElementById('item')).src = "gfx/items/"+item+".png";
+            (<HTMLInputElement>document.getElementById('enemy')).src = "gfx/enemies/0.png";
+            (<HTMLInputElement>document.getElementById('info')).innerHTML = actions[11] + itemForm[item];  
+        }
 
     }
 
 
   
-   }
+   
