@@ -1,7 +1,7 @@
 
 window.onload = () => {
  
-//_________________________________________________________
+//__________________________________________________________________________________________________________________
 //Soundtrack
     let ambient = <HTMLVideoElement> document.getElementById("ambient"); 
     window.onmousedown = function(mouseEvent) {
@@ -9,7 +9,7 @@ window.onload = () => {
     };
 //ToDo: enemy sounds, fight sounds, going down sounds, maybe different ambients for different locations...
 
-//_________________________________________________________
+//__________________________________________________________________________________________________________________
 //Statistics overall
     let floor = 0;
     let previousFloor = null;
@@ -24,9 +24,19 @@ window.onload = () => {
     let enemyDefense = 0;
     let enemyStrength = 0;
     let enemyDexterity = 0;
-//ToDo:Add more stuff, player stats still lacking.
 
-//_________________________________________________________
+    let playerHealth = 10;
+    let playerDefense = 5;
+    let playerStrength = 5;
+    let playerDexterity = 5;
+    let playerSanity = 5;
+    let playerMorality = 5;
+
+//ToDo:Add more stuff, player stats still lacking, add fundamentals for character creation.
+
+
+
+//__________________________________________________________________________________________________________________
 //Interaction with the game.
     const button = document.querySelector("button");
     button?.addEventListener("click", promptCheck);
@@ -38,7 +48,7 @@ window.onload = () => {
    }
 //ToDo: Perhaps a joystick on the right side of the screen, still not sure.
     
-//_________________________________________________________
+//__________________________________________________________________________________________________________________
 //All Text in the game.
     let movingQuotes =[
         "You are still here. ",
@@ -55,7 +65,6 @@ window.onload = () => {
         "You wish upon a star to take you away from this nightmare, but it only took you further down. ",
         "You snap out of it. ",
     ]
-
     let movingPlace = [
         "You are in a dark void. ",
         "You are now in a dark cave. ",
@@ -68,7 +77,6 @@ window.onload = () => {
         "You are next to a dark castle. ",
         "You are near an underground river. ",
      ]
-
     let actions =[
         "You see ",
         "You fight ",
@@ -82,8 +90,8 @@ window.onload = () => {
         "You also see ",
         "You are in front of ",
         "On the ground there is ",
+        "You look in the mirror. "
     ]
-
     let enemyForm =[
         "nobody. ",
         "a noble Knight. ",
@@ -96,7 +104,6 @@ window.onload = () => {
         "a beautiful Elf. ",
         "a rattling Skeleton. ",
     ]
-
     let itemForm =[
         "nothing. ",
         "a sharp Sword. ",
@@ -110,7 +117,6 @@ window.onload = () => {
         "a pair of durable Gloves. ",
         "a sturdy Helmet. ",
         ]
-
     let defenseFormEnemy = [
         "He fell apart. ",
         "A slight breeze would topple him over. ",
@@ -124,7 +130,19 @@ window.onload = () => {
         "Pretty much nothing can even scratch him. ",
         "He is indestructible. ",
     ]
-
+    let defenseFormPlayer = [
+        "You fell apart. ",
+        "A slight breeze would topple you over. ",
+        "It doesn't take much to take you down. ",
+        "You are quite frail. ",
+        "You can't survive a lot. ",
+        "Your build is pretty average. ",
+        "You are pretty durable. ",
+        "You have a solid build. ",
+        "You are built like a tank. ",
+        "Pretty much nothing can even scratch you. ",
+        "You are indestructible. ",
+    ]
     let dexterityFormEnemy = [
         "He cannot move. ",
         "He might as well be in a wheelchair. ",
@@ -138,7 +156,19 @@ window.onload = () => {
         "He is the definition of finesse. ",
         "He is like the wind. ",
     ]
-
+    let dexterityFormPlayer = [
+        "You cannot move. ",
+        "You might as well be in a wheelchair. ",
+        "You are slow. ",
+        "You lack aristry. ",
+        "You aren't very fast. ",
+        "You have mediocre speed. ",
+        "Your dexterity is above average. ",
+        "You are quite nimble. ",
+        "Nimble doesn't even begin to describe you. ",
+        "You are the definition of finesse. ",
+        "You are like the wind. ",
+    ]
     let strengthFormEnemy = [
         "He is dead. ",
         "He is anemic. ",
@@ -152,20 +182,77 @@ window.onload = () => {
         "He has the power of Hercules. ",
         "He has the power of God. ",
     ]
-
+    let strengthFormPlayer = [
+        "You are dead. ",
+        "You are anemic. ",
+        "You are obviously weak. ",
+        "You are very skinny. ",
+        "You are slightly weak. ",
+        "You aren't especially strong. ",
+        "You have decent power. ",
+        "You have huge muscles. ",
+        "You can destroy anyone. ",
+        "You have the power of Hercules. ",
+        "You have the power of God. ",
+    ]
     let healthFormEnemy = [
         "He is dead. ",
         "He has trouble keeping his eyes open, he feels himself drifting away into ether. ",
         "His life flashes before his eyes, the death is near. ",
         "He can barely move, he wonders why he even came here. ",
-        "He is gravely injured, he suffers from blood loss. ",
-        "He is bleeding profusely. ",
-        "He is injured and bleeding from his cuts. ",
+        "He is gravely injured, he suffers from deep wounds. ",
+        "He has several broken bones. ",
+        "He is injured and limping. ",
         "He has painful cuts on it. ",
-        "He has bruises and scratches on it. ",
+        "He has bruises and scratches. ",
         "He is slightly bruised. ",
         "He doesn't look wounded. ",
     ]
+
+    let healthFormPlayer = [
+        "You are dead. ",
+        "You have trouble keeping his eyes open, you feel yourself drifting away into ether. ",
+        "Your life flashes before your eyes, the death is near. ",
+        "You can barely move, you wonder why you even came here. ",
+        "You are gravely injured, you suffer from blood loss. ",
+        "You are bleeding profusely. ",
+        "You are injured and bleeding from your cuts. ",
+        "You have painful cuts on it. ",
+        "You have bruises and scratches. ",
+        "You are slightly bruised. ",
+        "You don't look wounded. ",
+    ]
+
+    let sanityFormPlayer = [
+       "You are completely insane, the shadows are aggressive towards you and will attack you if you don't escape rooms quick enough, the mirror is cracked. ",
+       "Your face is no longer human, it feels human in touch but the reflection says otherwise, the shadows have materialized and are visible outside of the mirror as well. ",
+       "You see shadows in the corner of your vision, your face has a twisted grimace. ",
+       "Your eyes are pure black, black ooze is pouring out of them. ",
+       "It's you... with black hollow eyes, your reflection goes back to normal after you blink. ",
+       "You are frowning. ",
+       "There is a smile on your face. ",
+       "You look confident. ",
+       "Despite being in this situation, you look genuinely happy. ",
+       "You look like you can take on the entire world. ",
+       "Your smile is so smug, it's almost like you like being here. ",
+    ]
+
+    let moralityFormPlayer = [    
+        "You take a glance at the mirror and quickly look away, but the image is seared into your eyes, it is your tortured soul in hell, you can no longer hold back your true self. ",
+        "Your face is dripping with blood, you look down and so are your hands, you can't accept the reality of it, no matter how hard you claw at your own hand the blood does not go away, no matter how hard you rub your eyes it just makes your eyesight more and more red. ",
+        "Your face is covered in blood, you look down and see your hands are dripping as well, you don't know why, but you just know it's not your blood, as soon as you blink your hands go back to normal. ",
+        "There is no question about it, the red stains on your face are blood, you try to rub your eyes with your hand, but it does not help. ",
+        "Your face seems to have red stains on it, but they disappear as soon as you blink. ",
+        "There is nothing else out of ordinary about your reflection. ",
+        "You take a peak at the mirror and you could've swore you saw a faint halo above your head, for split second, was it a delusion? Regardless, it fuels you with joy. INCREASES SANITY BY 20%. ",
+        "The halo above your head is bright, the glow feels your heart with determination. ",
+        "The halo is clearly visible, you can even see a pair of wings behind your back. ",
+        "You can barely see yourself, the holy glow in the mirror is overwhelming you. ",
+        "You take a glance at the mirror and it almost blinds you, but you clearly saw the image of yourself in heaven, you are no longer afraid of death. ",
+     ]
+
+
+
 //ToDo: More text, it's a text based game, everything has to be described.
 
 
@@ -180,17 +267,26 @@ window.onload = () => {
           (<HTMLInputElement>document.getElementById('written')).placeholder = "";
           console.log(prompt);
 
-          if (prompt.toLowerCase()=="descend" || prompt.toLowerCase()=="d"){
+          if (prompt.charAt(0).toLowerCase()=="d"){
             setFloor();
           }
 
-          if (prompt.toLowerCase()=="investigate" || prompt.toLowerCase()=="i"){
+          if (prompt.charAt(0).toLowerCase()=="i"){
             showEnemy()
           }
 
-          if (prompt.toLowerCase()=="rummage" || prompt.toLowerCase()=="r"){
+          if (prompt.charAt(0).toLowerCase()=="r"){
             showItem()
           }
+
+          if (prompt.charAt(0).toLowerCase()=="c"){
+            showPlayerStats()
+          }
+          
+          if (prompt.charAt(0).toLowerCase()=="m"){
+            showPlayerReflection()
+          }
+
 
           prompter.focus();
         return prompt;
@@ -232,17 +328,17 @@ window.onload = () => {
         if(enemyDefense>10){
             enemyDefense=10;
         }
-        console.log("Defense" + enemyDefense);
+
         enemyStrength = Math.floor(Math.random() * stage/2) + 1;
         if(enemyStrength>10){
             enemyStrength=10;
         }
-        console.log("Strength" + enemyStrength);
+
         enemyDexterity = Math.floor(Math.random() * stage/2) + 1;
         if(enemyDexterity>10){
             enemyDexterity=10;
         }
-        console.log("Dexterity" + enemyDexterity);
+
 
         (<HTMLInputElement>document.getElementById('floor')).src = "gfx/floors/"+floor+".png";
         (<HTMLInputElement>document.getElementById('item')).src = "gfx/items/0.png";
@@ -262,19 +358,32 @@ window.onload = () => {
             (<HTMLInputElement>document.getElementById('info')).innerHTML = actions[11] + itemForm[item];  
         }
 
+        function showPlayerStats() {
+            (<HTMLInputElement>document.getElementById('info')).innerHTML =  defenseFormPlayer[playerDefense] + strengthFormPlayer[playerStrength] + dexterityFormPlayer[playerDexterity] + healthFormPlayer[playerHealth];  
+        }
+
+        function showPlayerReflection() {
+            (<HTMLInputElement>document.getElementById('info')).innerHTML =  actions[12] + sanityFormPlayer[playerSanity] + moralityFormPlayer[playerMorality];  
+        }
+
     }
     //ToDo: Mirror, Fight, Check, Equip, Kill, Spare.
 
 
   
-//ToDo in general: "(?) - unconfirmed feature"
-//Text that goes letter by letter. (Because it's cool)
-//Moral choices.
+//ToDo, what's needed:
+//Text that goes letter by letter, instead of at once.
 //Random non-enemy encounters.
 //Random non-enemy events.
+//Combat system.
+//Equip system. (equipping armor and weapons)
+//Potion system.
+//Accessory System.
+
+//ToDo, extra features:
+//A way to speak to enemies. (?)
+//Sanity Effects. (?)
+//Easter Eggs. (?)
+//Moral choices. (?)
 //Saving the previous locations(?)
 //A way to return to previous locations.(?)
-//Combat system.
-//Equip system.
-//Potion system.
-//A way to speak to enemies. (?)
