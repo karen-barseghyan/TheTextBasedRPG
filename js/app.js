@@ -27,6 +27,7 @@ window.onload = function () {
     var playerDexterity = 5;
     var playerSanity = 5;
     var playerMorality = 5;
+    var allowPrompt = 1;
     //ToDo:Add more stuff, player stats still lacking, add fundamentals for character creation.
     //__________________________________________________________________________________________________________________
     //Interaction with the game.
@@ -248,25 +249,30 @@ window.onload = function () {
         document.getElementById('written').value = null;
         document.getElementById('written').placeholder = "";
         console.log(prompt);
-        if (prompt.toLowerCase() == "descend" || prompt.toLowerCase() == "d") {
+        if (prompt.charAt(0).toLowerCase() == "d" && allowPrompt == 1) {
             setFloor();
         }
-        if (prompt.toLowerCase() == "investigate" || prompt.toLowerCase() == "i") {
+        if (prompt.charAt(0).toLowerCase() == "i" && allowPrompt == 1) {
             showEnemy();
         }
-        if (prompt.toLowerCase() == "rummage" || prompt.toLowerCase() == "r") {
+        if (prompt.charAt(0).toLowerCase() == "r" && allowPrompt == 1) {
             showItem();
         }
-        if (prompt.toLowerCase() == "check" || prompt.toLowerCase() == "c") {
+        if (prompt.charAt(0).toLowerCase() == "c" && allowPrompt == 1) {
             showPlayerStats();
         }
-        if (prompt.charAt(0).toLowerCase() == "m") {
+        if (prompt.charAt(0).toLowerCase() == "m" && allowPrompt == 1) {
             showPlayerReflection();
         }
         prompter.focus();
         return prompt;
     }
     //ToDo: Mirror, Fight, Check, Equip, Kill, Spare.
+    //_________________________________________________________
+    //Delay
+    //function delay(ms: number) {
+    //   return new Promise( resolve => setTimeout(resolve, ms) );
+    //}
     //_________________________________________________________
     //Do the stated Action.
     function setFloor() {
@@ -307,23 +313,68 @@ window.onload = function () {
         document.getElementById('floor').src = "gfx/floors/" + floor + ".png";
         document.getElementById('item').src = "gfx/items/0.png";
         document.getElementById('enemy').src = "gfx/enemies/0.png";
-        document.getElementById('info').innerHTML = movingQuotes[move] + movingPlace[floor] + actions[0] + enemyForm[enemy] + actions[9] + itemForm[item];
+        document.getElementById('info').innerHTML = null;
+        var shownFloorText = movingQuotes[move] + movingPlace[floor] + actions[0] + enemyForm[enemy] + actions[9] + itemForm[item];
+        allowPrompt = 0;
+        var _loop_1 = function (i) {
+            setTimeout(function () { document.getElementById('info').innerHTML += shownFloorText[i]; }, i * 10);
+        };
+        for (var i = 0; i < shownFloorText.length; i++) {
+            _loop_1(i);
+        }
+        setTimeout(function () { allowPrompt = 1; console.log("promptAllowed"); }, shownFloorText.length * 10);
     }
     function showEnemy() {
         document.getElementById('enemy').src = "gfx/enemies/" + enemy + ".gif";
         document.getElementById('item').src = "gfx/items/0.png";
-        document.getElementById('info').innerHTML = actions[10] + enemyForm[enemy] + defenseFormEnemy[enemyDefense] + strengthFormEnemy[enemyStrength] + dexterityFormEnemy[enemyDexterity] + healthFormEnemy[enemyHealth];
+        document.getElementById('info').innerHTML = null;
+        var shownEnemyText = actions[10] + enemyForm[enemy] + defenseFormEnemy[enemyDefense] + strengthFormEnemy[enemyStrength] + dexterityFormEnemy[enemyDexterity] + healthFormEnemy[enemyHealth];
+        allowPrompt = 0;
+        var _loop_2 = function (i) {
+            setTimeout(function () { document.getElementById('info').innerHTML += shownEnemyText[i]; }, i * 10);
+        };
+        for (var i = 0; i < shownEnemyText.length; i++) {
+            _loop_2(i);
+        }
+        setTimeout(function () { allowPrompt = 1; console.log("promptAllowed"); }, shownEnemyText.length * 10);
     }
     function showItem() {
         document.getElementById('item').src = "gfx/items/" + item + ".png";
         document.getElementById('enemy').src = "gfx/enemies/0.png";
-        document.getElementById('info').innerHTML = actions[11] + itemForm[item];
+        document.getElementById('info').innerHTML = null;
+        var shownItemText = actions[11] + itemForm[item];
+        allowPrompt = 0;
+        var _loop_3 = function (i) {
+            setTimeout(function () { document.getElementById('info').innerHTML += shownItemText[i]; }, i * 10);
+        };
+        for (var i = 0; i < shownItemText.length; i++) {
+            _loop_3(i);
+        }
+        setTimeout(function () { allowPrompt = 1; console.log("promptAllowed"); }, shownItemText.length * 10);
     }
     function showPlayerStats() {
-        document.getElementById('info').innerHTML = defenseFormPlayer[playerDefense] + strengthFormPlayer[playerStrength] + dexterityFormPlayer[playerDexterity] + healthFormPlayer[playerHealth];
+        document.getElementById('info').innerHTML = null;
+        var shownPlayerStatsText = defenseFormPlayer[playerDefense] + strengthFormPlayer[playerStrength] + dexterityFormPlayer[playerDexterity] + healthFormPlayer[playerHealth];
+        allowPrompt = 0;
+        var _loop_4 = function (i) {
+            setTimeout(function () { document.getElementById('info').innerHTML += shownPlayerStatsText[i]; }, i * 10);
+        };
+        for (var i = 0; i < shownPlayerStatsText.length; i++) {
+            _loop_4(i);
+        }
+        setTimeout(function () { allowPrompt = 1; console.log("promptAllowed"); }, shownPlayerStatsText.length * 10);
     }
     function showPlayerReflection() {
-        document.getElementById('info').innerHTML = actions[12] + sanityFormPlayer[playerSanity] + moralityFormPlayer[playerMorality];
+        document.getElementById('info').innerHTML = null;
+        var shownPlayerReflectionText = actions[12] + sanityFormPlayer[playerSanity] + moralityFormPlayer[playerMorality];
+        allowPrompt = 0;
+        var _loop_5 = function (i) {
+            setTimeout(function () { document.getElementById('info').innerHTML += shownPlayerReflectionText[i]; }, i * 10);
+        };
+        for (var i = 0; i < shownPlayerReflectionText.length; i++) {
+            _loop_5(i);
+        }
+        setTimeout(function () { allowPrompt = 1; console.log("promptAllowed"); }, shownPlayerReflectionText.length * 10);
     }
 };
 //ToDo: Mirror, Fight, Check, Equip, Kill, Spare.

@@ -32,6 +32,8 @@ window.onload = () => {
     let playerSanity = 5;
     let playerMorality = 5;
 
+    let allowPrompt = 1;
+
 //ToDo:Add more stuff, player stats still lacking, add fundamentals for character creation.
 
 
@@ -267,23 +269,23 @@ window.onload = () => {
           (<HTMLInputElement>document.getElementById('written')).placeholder = "";
           console.log(prompt);
 
-          if (prompt.charAt(0).toLowerCase()=="d"){
+          if (prompt.charAt(0).toLowerCase()=="d" && allowPrompt == 1){
             setFloor();
           }
 
-          if (prompt.charAt(0).toLowerCase()=="i"){
+          if (prompt.charAt(0).toLowerCase()=="i" && allowPrompt == 1){
             showEnemy()
           }
 
-          if (prompt.charAt(0).toLowerCase()=="r"){
+          if (prompt.charAt(0).toLowerCase()=="r" && allowPrompt == 1){
             showItem()
           }
 
-          if (prompt.charAt(0).toLowerCase()=="c"){
+          if (prompt.charAt(0).toLowerCase()=="c" && allowPrompt == 1){
             showPlayerStats()
           }
           
-          if (prompt.charAt(0).toLowerCase()=="m"){
+          if (prompt.charAt(0).toLowerCase()=="m" && allowPrompt == 1){
             showPlayerReflection()
           }
 
@@ -292,6 +294,12 @@ window.onload = () => {
         return prompt;
       }
 //ToDo: Mirror, Fight, Check, Equip, Kill, Spare.
+
+//_________________________________________________________
+//Delay
+//function delay(ms: number) {
+ //   return new Promise( resolve => setTimeout(resolve, ms) );
+//}
 
 //_________________________________________________________
 //Do the stated Action.
@@ -343,27 +351,59 @@ window.onload = () => {
         (<HTMLInputElement>document.getElementById('floor')).src = "gfx/floors/"+floor+".png";
         (<HTMLInputElement>document.getElementById('item')).src = "gfx/items/0.png";
         (<HTMLInputElement>document.getElementById('enemy')).src = "gfx/enemies/0.png";
-        (<HTMLInputElement>document.getElementById('info')).innerHTML = movingQuotes[move] + movingPlace[floor] + actions[0] + enemyForm[enemy] + actions[9] + itemForm[item];
-
+        (<HTMLInputElement>document.getElementById('info')).innerHTML = null;
+        let shownFloorText = movingQuotes[move] + movingPlace[floor] + actions[0] + enemyForm[enemy] + actions[9] + itemForm[item];
+        allowPrompt = 0;
+        for (let i=0; i<shownFloorText.length ; i++){
+            setTimeout( () => {(<HTMLInputElement>document.getElementById('info')).innerHTML += shownFloorText[i] }, i*10 );
+        }
+        setTimeout( () => {allowPrompt = 1; console.log("promptAllowed") }, shownFloorText.length*10 );
       }
+
+
         function showEnemy() {
             (<HTMLInputElement>document.getElementById('enemy')).src = "gfx/enemies/"+enemy+".gif";
             (<HTMLInputElement>document.getElementById('item')).src = "gfx/items/0.png";
-            (<HTMLInputElement>document.getElementById('info')).innerHTML = actions[10] + enemyForm[enemy]  + defenseFormEnemy[enemyDefense] + strengthFormEnemy[enemyStrength] + dexterityFormEnemy[enemyDexterity] + healthFormEnemy[enemyHealth];  
-        }
+            (<HTMLInputElement>document.getElementById('info')).innerHTML = null;
+            let shownEnemyText = actions[10] + enemyForm[enemy]  + defenseFormEnemy[enemyDefense] + strengthFormEnemy[enemyStrength] + dexterityFormEnemy[enemyDexterity] + healthFormEnemy[enemyHealth]; 
+            allowPrompt = 0;
+            for (let i=0; i<shownEnemyText.length ; i++){
+                setTimeout( () => {(<HTMLInputElement>document.getElementById('info')).innerHTML += shownEnemyText[i] }, i*10 );
+            }
+            setTimeout( () => {allowPrompt = 1; console.log("promptAllowed") }, shownEnemyText.length*10 );
+          }
+        
 
         function showItem() {
             (<HTMLInputElement>document.getElementById('item')).src = "gfx/items/"+item+".png";
             (<HTMLInputElement>document.getElementById('enemy')).src = "gfx/enemies/0.png";
-            (<HTMLInputElement>document.getElementById('info')).innerHTML = actions[11] + itemForm[item];  
+            (<HTMLInputElement>document.getElementById('info')).innerHTML = null;
+            let shownItemText = actions[11] + itemForm[item];  
+            allowPrompt = 0;
+            for (let i=0; i<shownItemText.length ; i++){
+                setTimeout( () => {(<HTMLInputElement>document.getElementById('info')).innerHTML += shownItemText[i] }, i*10 );
+            }
+            setTimeout( () => {allowPrompt = 1; console.log("promptAllowed") }, shownItemText.length*10 );
         }
 
         function showPlayerStats() {
-            (<HTMLInputElement>document.getElementById('info')).innerHTML =  defenseFormPlayer[playerDefense] + strengthFormPlayer[playerStrength] + dexterityFormPlayer[playerDexterity] + healthFormPlayer[playerHealth];  
+            (<HTMLInputElement>document.getElementById('info')).innerHTML = null;
+            let shownPlayerStatsText =  defenseFormPlayer[playerDefense] + strengthFormPlayer[playerStrength] + dexterityFormPlayer[playerDexterity] + healthFormPlayer[playerHealth];  
+            allowPrompt = 0;
+            for (let i=0; i<shownPlayerStatsText.length ; i++){
+                setTimeout( () => {(<HTMLInputElement>document.getElementById('info')).innerHTML += shownPlayerStatsText[i] }, i*10 );
+            }
+            setTimeout( () => {allowPrompt = 1; console.log("promptAllowed") }, shownPlayerStatsText.length*10 );
         }
 
         function showPlayerReflection() {
-            (<HTMLInputElement>document.getElementById('info')).innerHTML =  actions[12] + sanityFormPlayer[playerSanity] + moralityFormPlayer[playerMorality];  
+            (<HTMLInputElement>document.getElementById('info')).innerHTML = null;
+            let shownPlayerReflectionText =  actions[12] + sanityFormPlayer[playerSanity] + moralityFormPlayer[playerMorality];
+            allowPrompt = 0;
+            for (let i=0; i<shownPlayerReflectionText.length ; i++){
+                setTimeout( () => {(<HTMLInputElement>document.getElementById('info')).innerHTML += shownPlayerReflectionText[i] }, i*10 );
+            }
+            setTimeout( () => {allowPrompt = 1; console.log("promptAllowed") }, shownPlayerReflectionText.length*10 );  
         }
 
     }
