@@ -79,7 +79,7 @@ button{
     position:absolute;
     left:1%;
     font-size:1.1vw;
-    line-height:1.6vw;
+    line-height:1.5vw;
     top:2%;
 }
 
@@ -99,4 +99,12 @@ img{
     margin-left: auto;
     height:100%;
     width:100%;
+}
+
+.enabled{
+    color:white;
+}
+
+.disabled{
+    color:gray;
 }
