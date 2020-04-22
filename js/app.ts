@@ -40,8 +40,8 @@ window.onload = () => {
 
 //__________________________________________________________________________________________________________________
 //Interaction with the game.
-    const button = document.querySelector("button");
-    button?.addEventListener("click", promptCheck);
+    const proceed = document.getElementById("proceed");
+    proceed?.addEventListener("click", promptCheck);
 
     window.onkeydown = (ev: KeyboardEvent): any => {
         if (ev.keyCode == 13) {
@@ -66,6 +66,11 @@ window.onload = () => {
         "Suddenly a monster grabbed you and threw you down. ",
         "You wish upon a star to take you away from this nightmare, but it only took you further down. ",
         "You snap out of it. ",
+        "The worst is still in front of you. ",
+        "You feel your mind detoriating as you move further down. ",
+        "Have you seen this place before? No, can't be... ",
+        "You pray nothing else will hurt you as you go down, your prayers remain unanswered.",
+        "Hope? You forgot what this word means. ",
     ]
     let movingPlace = [
         "You are in a dark void. ",
@@ -147,7 +152,7 @@ window.onload = () => {
     ]
     let dexterityFormEnemy = [
         "He cannot move. ",
-        "He might as well be in a wheelchair. ",
+        "He can barely move. ",
         "He is slow. ",
         "He lacks aristry. ",
         "He isn't very fast. ",
@@ -160,7 +165,7 @@ window.onload = () => {
     ]
     let dexterityFormPlayer = [
         "You cannot move. ",
-        "You might as well be in a wheelchair. ",
+        "You can barely move. ",
         "You are slow. ",
         "You lack aristry. ",
         "You aren't very fast. ",
@@ -172,7 +177,7 @@ window.onload = () => {
         "You are like the wind. ",
     ]
     let strengthFormEnemy = [
-        "He is dead. ",
+        "He has ceased to be. ",
         "He is anemic. ",
         "He is obviously weak. ",
         "He is very skinny. ",
@@ -325,27 +330,45 @@ window.onload = () => {
         }
         previousItem = item;
 
-        move = Math.floor(Math.random() * 12) + 1;
+        move = Math.floor(Math.random() * 17) + 1;
         if(move==previousMove){
             move = Math.floor(Math.random() * 12) + 1;
         }
         previousMove = move;
         
         enemyHealth = 10;
-        enemyDefense = Math.floor(Math.random() * stage/2) + 1;
+        enemyDefense = Math.floor(Math.random() * stage) + 1;
         if(enemyDefense>10){
             enemyDefense=10;
         }
 
-        enemyStrength = Math.floor(Math.random() * stage/2) + 1;
+        enemyStrength = Math.floor(Math.random() * stage) + 1;
         if(enemyStrength>10){
             enemyStrength=10;
         }
 
-        enemyDexterity = Math.floor(Math.random() * stage/2) + 1;
+        enemyDexterity = Math.floor(Math.random() * stage) + 1;
         if(enemyDexterity>10){
             enemyDexterity=10;
         }
+
+        enemyHealth = Math.floor(Math.random() * 3) + 8;
+       
+        if(enemyHealth>10){
+            enemyHealth=10;
+        }
+
+        //Debug Checkers
+        console.log("_______________________________________________");
+        console.log("Floor: " + stage);
+        console.log("Enemy: "+ enemyForm[enemy]);
+        console.log("Defense: "+ enemyDefense);
+        console.log("Strength: "+ enemyStrength);
+        console.log("Dexterity: "+ enemyDexterity);
+        console.log("Health: "+ enemyHealth);
+        console.log("_______________________________________________");
+        //
+
 
 
         (<HTMLInputElement>document.getElementById('floor')).src = "gfx/floors/"+floor+".png";
@@ -412,7 +435,6 @@ window.onload = () => {
 
   
 //ToDo, what's needed:
-//Text that goes letter by letter, instead of at once.
 //Random non-enemy encounters.
 //Random non-enemy events.
 //Combat system.
