@@ -26,20 +26,22 @@ window.onload = () => {
     let enemyDefense = 1;
     let enemyStrength = 1;
     let enemyDexterity = 1;
-
+    let waitForAttack = 0;
     let enemyOnScreen = 0;
     let itemToUse = 0;
 
     let potionBackOpen = 0;
     let rummageOpen = 0;
     let enemyIsAlive = 0;
+
+    let enemyAttackStrength = 0;
     //Player Stats:
 
     let playerHealth = 11;
     let playerDefense = 6;
     let playerStrength = 6;
     let playerDexterity = 6;
-
+    let attackStrength = 0;
     let playerDefenseDebuff = 0;
     let playerStrengthDebuff = 0;
     let playerDexterityDebuff = 0;
@@ -137,7 +139,9 @@ window.onload = () => {
         "You used ",
         "You threw ",
         "You don't have ",
-        "The hatch to the next level is locked, you need to defeat the enemy or possess a key to proceed. "
+        "The hatch to the next level is locked, you need to defeat the enemy or possess a key to proceed. ",
+        "You attacked ",
+        "You got hit! "
     ]
     let enemyForm = [
         "",
@@ -292,7 +296,7 @@ window.onload = () => {
         "He is gravely injured, he suffers from deep wounds. ",
         "He has several broken bones. ",
         "He is injured and limping. ",
-        "He has painful cuts on it. ",
+        "He has painful cuts on himself. ",
         "He has bruises and scratches. ",
         "He is slightly bruised. ",
         "He doesn't look wounded. ",
@@ -307,7 +311,7 @@ window.onload = () => {
         "You are gravely injured, you suffer from blood loss. ",
         "You are bleeding profusely. ",
         "You are injured and bleeding from your cuts. ",
-        "You have painful cuts on it. ",
+        "You have painful cuts on yourself. ",
         "You have bruises and scratches. ",
         "You are slightly bruised. ",
         "You don't look wounded. ",
@@ -361,34 +365,34 @@ window.onload = () => {
             (<HTMLInputElement>document.getElementById('written')).placeholder = "";
             console.log(prompt);
 
-            if (allowPrompt == 1) {
+            if (allowPrompt == 1 && waitForAttack == 0) {
                 switch (prompt.charAt(0).toLowerCase()) {
                     case "d":
                         enemyOnScreen = 0;
                         if (enemyIsAlive == 1 && keyAmount < 1 && stage != 0) {
-                            new showInfo(0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+                            new showInfo(0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
                         }
                         if (enemyIsAlive == 1 && keyAmount > 0) {
                             keyAmount = keyAmount - 1;
                             new setFloor(1, 0);
                             new showGraphics(0, 0, floor, 0);
-                            new showInfo(1, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+                            new showInfo(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
                         }
                         if (enemyIsAlive == 0) {
                             new setFloor(1, 0);
                             new showGraphics(0, 0, floor, 0);
-                            new showInfo(1, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+                            new showInfo(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
                         }
 
                         break;
                     case "i":
                         if (enemyOnScreen == 0) {
                             new showGraphics(enemy, 0, floor, animation);
-                            new showInfo(0, 0, 0, 0, 1, 0, 0, 0, 0, 0);
+                            new showInfo(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
                         }
 
                         if (enemyOnScreen == 1) {
-                            new showInfo(0, 0, 0, 0, 1, 0, 0, 0, 0, 0);
+                            new showInfo(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
                         }
 
                         enemyOnScreen = 1;
@@ -398,22 +402,27 @@ window.onload = () => {
                             enemyOnScreen = 0;
                             rummageOpen = 1;
                             new showGraphics(0, item, floor, animation);
-                            new showInfo(0, 0, 0, 1, 0, 0, 0, 0, 0, 0);
+                            new showInfo(0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0);
                         }
                         break;
                     case "c":
-                        new showInfo(0, 1, 0, 0, 0, 0, 0, 0, 0, 0);
+                        new showInfo(0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
                         break;
                     case "m":
-                        new showInfo(0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+                        new showInfo(0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0);
                         break;
+
+                    case "f":
+                        new useItem("weapon");
+                        break;
+
 
                     case "e":
                         enemyOnScreen = 0;
                         if (itemIsOnGround == 1 && rummageOpen == 1) {
                             rummageOpen = 0;
                             itemIsOnGround = 0;
-                            new showInfo(0, 0, 0, 0, 0, 0, 0, 0, 1, 0);
+                            new showInfo(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
                             new showGraphics(0, 0, floor, 0);
                             switch (item) {
                                 case 1:
@@ -484,7 +493,7 @@ window.onload = () => {
 
                     case "p":
                         potionBackOpen = 1;
-                        new showInfo(0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
+                        new showInfo(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0);
                         break;
 
                     case "s":
@@ -576,7 +585,7 @@ window.onload = () => {
 
 
     class showInfo {
-        constructor(isFloorShown, isPlayerStatShown, isPlayerReflectionShown, isItemShown, isEnemyShown, isItemUsed, isItemUnavailable, readyForPotionUsage, isItemPickedUp, isBlocked) {
+        constructor(isFloorShown, isPlayerStatShown, isPlayerReflectionShown, isItemShown, isEnemyShown, isItemUsed, isItemUnavailable, readyForPotionUsage, isItemPickedUp, isBlocked, isSwordUsed, isEnemyAttacking) {
             /*Debug Checkers
             console.log("_______________________________________________");
             console.log("Floor: " + stage);
@@ -589,7 +598,7 @@ window.onload = () => {
             console.log("_______________________________________________");
             */
             (<HTMLInputElement>document.getElementById('info')).innerHTML = null;
-            let shownText = movingQuotes[move * isFloorShown] + movingPlace[floor * isFloorShown] + actions[1 * isFloorShown] + enemyForm[enemy * isFloorShown] + actions[10 * isFloorShown] + itemForm[item * isFloorShown] + defenseFormPlayer[playerDefense * isPlayerStatShown] + strengthFormPlayer[playerStrength * isPlayerStatShown] + dexterityFormPlayer[playerDexterity * isPlayerStatShown] + healthFormPlayer[playerHealth * isPlayerStatShown] + actions[13 * isPlayerReflectionShown] + sanityFormPlayer[playerSanity * isPlayerReflectionShown] + moralityFormPlayer[playerMorality * isPlayerReflectionShown] + actions[12 * isItemShown] + itemForm[item * isItemShown] + actions[11 * isEnemyShown] + enemyForm[enemy * isEnemyShown] + defenseFormEnemy[enemyDefense * isEnemyShown] + strengthFormEnemy[enemyStrength * isEnemyShown] + dexterityFormEnemy[enemyDexterity * isEnemyShown] + healthFormEnemy[enemyHealth * isEnemyShown] + actions[14 * isItemUsed] + itemUsage[itemToUse * isItemUsed] + actions[16 * isItemUnavailable] + itemForm[itemToUse * isItemUnavailable] + itemChoicePresented[1 * readyForPotionUsage] + actions[7 * isItemPickedUp] + itemForm[item * isItemPickedUp] + actions[17 * isBlocked];
+            let shownText = movingQuotes[move * isFloorShown] + movingPlace[floor * isFloorShown] + actions[1 * isFloorShown] + enemyForm[enemy * isFloorShown] + actions[10 * isFloorShown] + itemForm[item * isFloorShown] + defenseFormPlayer[playerDefense * isPlayerStatShown] + strengthFormPlayer[playerStrength * isPlayerStatShown] + dexterityFormPlayer[playerDexterity * isPlayerStatShown] + healthFormPlayer[playerHealth * isPlayerStatShown] + actions[13 * isPlayerReflectionShown] + sanityFormPlayer[playerSanity * isPlayerReflectionShown] + moralityFormPlayer[playerMorality * isPlayerReflectionShown] + actions[12 * isItemShown] + itemForm[item * isItemShown] + actions[11 * isEnemyShown] + enemyForm[enemy * isEnemyShown] + defenseFormEnemy[enemyDefense * isEnemyShown] + strengthFormEnemy[enemyStrength * isEnemyShown] + dexterityFormEnemy[enemyDexterity * isEnemyShown] + healthFormEnemy[enemyHealth * isEnemyShown] + actions[14 * isItemUsed] + itemUsage[itemToUse * isItemUsed] + actions[16 * isItemUnavailable] + itemForm[itemToUse * isItemUnavailable] + itemChoicePresented[1 * readyForPotionUsage] + actions[7 * isItemPickedUp] + itemForm[item * isItemPickedUp] + actions[17 * isBlocked] + actions[18 * isSwordUsed] + enemyForm[enemy * isSwordUsed] + healthFormEnemy[enemyHealth * isSwordUsed] + actions[19 * isEnemyAttacking] + healthFormPlayer[playerHealth * isEnemyAttacking];
             allowPrompt = 0;
             for (let i = 0; i < shownText.length; i++) {
                 setTimeout(() => { (<HTMLInputElement>document.getElementById('info')).innerHTML += shownText[i] }, i * 10);
@@ -615,19 +624,76 @@ window.onload = () => {
                     if (healthPotionAmount >= 1) {
                         enemyOnScreen = 0;
                         new showGraphics(0, 0, floor, 5);
-                        new showInfo(0, 0, 0, 0, 0, 1, 0, 0, 0, 0);
+                        new showInfo(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);
                         playerHealth = 11;
                         healthPotionAmount = healthPotionAmount - 1;
                     }
                     else {
-                        new showInfo(0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
+                        new showInfo(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0);
                     }
                     break;
+
+                case "weapon":
+                    enemyOnScreen = 1;
+                    new showGraphics(enemy + 10, 0, floor, 1);
+                    if (enemyHealth > 0) {
+                        attackStrength = Math.round(weaponLevel + playerStrength - enemyDefense - enemyDexterity + (0.5 * glovesLevel));
+                        if (attackStrength < 1) {
+                            attackStrength = 1;
+                        }
+                        console.log("Your power" + attackStrength);
+                        enemyHealth = enemyHealth - attackStrength;
+
+                        if (enemyHealth < 2) {
+                            enemyHealth = 1;
+                        }
+                    }
+
+                    new showInfo(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0);
+                    waitForAttack = 1;
+
+
+
+                    setTimeout(() => {
+
+                        if (enemyIsAlive == 0) {
+                            waitForAttack = 0;
+                        };
+
+                        if (enemyIsAlive == 1) {
+
+                            enemyAttackStrength = Math.round(enemyStrength - (playerDefense / 5) - (playerDexterity / 5) - (0.5 * shieldLevel));
+
+                            console.log("Enemy power" + enemyAttackStrength);
+
+                            if (enemyAttackStrength < 0) {
+                                enemyAttackStrength = 0;
+                            }
+
+                            playerHealth = playerHealth - enemyAttackStrength;
+
+                            if (playerHealth < 2) {
+                                playerHealth = 1;
+                            }
+
+                            new showGraphics(enemy + 10, 0, floor, 2);
+                            new showInfo(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+                            waitForAttack = 0;
+                        }
+                    }, 3000);
+
+
+
+
+
+                    break;
+
+
                 case "sanity":
                     if (sanityPotionAmount >= 1) {
                         enemyOnScreen = 0;
                         new showGraphics(0, 0, floor, 5);
-                        new showInfo(0, 0, 0, 0, 0, 1, 0, 0, 0, 0);
+                        new showInfo(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);
                         if (playerSanity < 6) {
                             playerSanity = 6;
                         }
@@ -639,14 +705,14 @@ window.onload = () => {
                         sanityPotionAmount = sanityPotionAmount - 1;
                     }
                     else {
-                        new showInfo(0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
+                        new showInfo(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0);
                     }
                     break;
                 case "soul":
                     if (soulAmount >= 1) {
                         enemyOnScreen = 1;
                         new showGraphics(enemy + 10, 0, floor, 6);
-                        new showInfo(0, 0, 0, 0, 0, 1, 0, 0, 0, 0);
+                        new showInfo(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);
                         if (enemyHealth > 0) {
                             enemyHealth = enemyHealth - 5;
                             if (enemyHealth < 2) {
@@ -657,7 +723,7 @@ window.onload = () => {
                         soulAmount = soulAmount - 1;
                     }
                     else {
-                        new showInfo(0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
+                        new showInfo(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0);
                     }
                     break;
             }
@@ -791,10 +857,10 @@ window.onload = () => {
 //ToDo, what's needed:
 //Random non-enemy encounters.
 //Random non-enemy events.
-//Combat system.
-//Equip system. (equipping armor and weapons)
-//Potion system.
-//Accessory System.
+//Combat system. - Done.
+//Equip system. (equipping armor and weapons) - Done.
+//Potion system. - Done.
+//Accessory System. - Done.
 
 //ToDo, extra features:
 //A way to speak to enemies. (?)
@@ -806,6 +872,6 @@ window.onload = () => {
 
 
 
-//1.System walki
-//2.System przedmiotów
+//1.System walki - zrobione :)
+//2.System przedmiotów - zrobione :)
 //3.Zrobienie obiektowo - zrobione :)
