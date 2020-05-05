@@ -56,6 +56,7 @@ window.onload = function () {
     //Prompt Controllers
     var allowPrompt = 1;
     var waitForAttack = 0;
+    var textSpeed = 10;
     //Combat Controllers
     var enemyAttackStrength = 0;
     var attackStrength = 0;
@@ -124,7 +125,8 @@ window.onload = function () {
         "You don't have ",
         "The hatch to the next level is locked, you need to defeat the enemy or possess a key to proceed. ",
         "You attacked ",
-        "You got hit! "
+        "You got hit! ",
+        "You are dead, GAME OVER. "
     ];
     var enemyForm = [
         "",
@@ -252,7 +254,7 @@ window.onload = function () {
     ];
     var strengthFormPlayer = [
         "",
-        "You are dead. ",
+        "You are dead, GAME OVER. ",
         "You are anemic. ",
         "You are obviously weak. ",
         "You are very skinny. ",
@@ -280,7 +282,7 @@ window.onload = function () {
     ];
     var healthFormPlayer = [
         "",
-        "You are dead. ",
+        "You are dead, GAME OVER. ",
         "You have trouble keeping his eyes open, you feel yourself drifting away into ether. ",
         "Your life flashes before your eyes, the death is near. ",
         "You can barely move, you wonder why you even came here. ",
@@ -337,43 +339,48 @@ window.onload = function () {
                     case "d":
                         enemyOnScreen = 0;
                         if (enemyIsAlive == 1 && keyAmount < 1 && stage != 0) {
-                            new showInfo(0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
+                            new showInfo(0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
                         }
                         if (enemyIsAlive == 1 && keyAmount > 0) {
                             keyAmount = keyAmount - 1;
                             new setFloor(1, 0);
                             new showGraphics(0, 0, floor, 0);
-                            new showInfo(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+                            new showInfo(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
                         }
                         if (enemyIsAlive == 0) {
                             new setFloor(1, 0);
                             new showGraphics(0, 0, floor, 0);
-                            new showInfo(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+                            new showInfo(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
                         }
                         break;
                     case "i":
-                        if (enemyOnScreen == 0) {
-                            new showGraphics(enemy, 0, floor, animation);
-                            new showInfo(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+                        if (enemyIsAlive == 1) {
+                            if (enemyOnScreen == 0) {
+                                new showGraphics(enemy, 0, floor, animation);
+                                new showInfo(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0);
+                            }
+                            if (enemyOnScreen == 1) {
+                                new showInfo(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0);
+                            }
+                            enemyOnScreen = 1;
                         }
-                        if (enemyOnScreen == 1) {
-                            new showInfo(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+                        if (enemyIsAlive == 0) {
+                            new showInfo(0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0);
                         }
-                        enemyOnScreen = 1;
                         break;
                     case "r":
                         if (itemIsOnGround == 1) {
                             enemyOnScreen = 0;
                             rummageOpen = 1;
                             new showGraphics(0, item, floor, animation);
-                            new showInfo(0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0);
+                            new showInfo(0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0);
                         }
                         break;
                     case "c":
-                        new showInfo(0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+                        new showInfo(0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
                         break;
                     case "m":
-                        new showInfo(0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+                        new showInfo(0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
                         break;
                     case "f":
                         new useItem("weapon");
@@ -383,7 +390,7 @@ window.onload = function () {
                         if (itemIsOnGround == 1 && rummageOpen == 1) {
                             rummageOpen = 0;
                             itemIsOnGround = 0;
-                            new showInfo(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
+                            new showInfo(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0);
                             new showGraphics(0, 0, floor, 0);
                             switch (item) {
                                 case 1:
@@ -448,7 +455,7 @@ window.onload = function () {
                         break;
                     case "p":
                         potionBackOpen = 1;
-                        new showInfo(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0);
+                        new showInfo(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0);
                         break;
                     case "s":
                         if (potionBackOpen == 1) {
@@ -533,7 +540,7 @@ window.onload = function () {
     //_________________________________________________________
     //Class showing the text for my text based game.
     var showInfo = /** @class */ (function () {
-        function showInfo(isFloorShown, isPlayerStatShown, isPlayerReflectionShown, isItemShown, isEnemyShown, isItemUsed, isItemUnavailable, readyForPotionUsage, isItemPickedUp, isBlocked, isSwordUsed, isEnemyAttacking) {
+        function showInfo(isFloorShown, isPlayerStatShown, isPlayerReflectionShown, isItemShown, isEnemyShown, isItemUsed, isItemUnavailable, readyForPotionUsage, isItemPickedUp, isBlocked, isSwordUsed, isEnemyAttacking, isPlayerDead) {
             /*Debug Checkers
             console.log("_______________________________________________");
             console.log("Floor: " + stage);
@@ -546,7 +553,7 @@ window.onload = function () {
             console.log("_______________________________________________");
             */
             document.getElementById('info').innerHTML = null;
-            var shownText = movingQuotes[move * isFloorShown] + movingPlace[floor * isFloorShown] + actions[1 * isFloorShown] + enemyForm[enemy * isFloorShown] + actions[10 * isFloorShown] + itemForm[item * isFloorShown] + defenseFormPlayer[playerDefense * isPlayerStatShown] + strengthFormPlayer[playerStrength * isPlayerStatShown] + dexterityFormPlayer[playerDexterity * isPlayerStatShown] + healthFormPlayer[playerHealth * isPlayerStatShown] + actions[13 * isPlayerReflectionShown] + sanityFormPlayer[playerSanity * isPlayerReflectionShown] + moralityFormPlayer[playerMorality * isPlayerReflectionShown] + actions[12 * isItemShown] + itemForm[item * isItemShown] + actions[11 * isEnemyShown] + enemyForm[enemy * isEnemyShown] + defenseFormEnemy[enemyDefense * isEnemyShown] + strengthFormEnemy[enemyStrength * isEnemyShown] + dexterityFormEnemy[enemyDexterity * isEnemyShown] + healthFormEnemy[enemyHealth * isEnemyShown] + actions[14 * isItemUsed] + itemUsage[itemToUse * isItemUsed] + actions[16 * isItemUnavailable] + itemForm[itemToUse * isItemUnavailable] + itemChoicePresented[1 * readyForPotionUsage] + actions[7 * isItemPickedUp] + itemForm[item * isItemPickedUp] + actions[17 * isBlocked] + actions[18 * isSwordUsed] + enemyForm[enemy * isSwordUsed] + healthFormEnemy[enemyHealth * isSwordUsed] + actions[19 * isEnemyAttacking] + healthFormPlayer[playerHealth * isEnemyAttacking];
+            var shownText = movingQuotes[move * isFloorShown] + movingPlace[floor * isFloorShown] + actions[1 * isFloorShown] + enemyForm[enemy * isFloorShown] + actions[10 * isFloorShown] + itemForm[item * isFloorShown] + defenseFormPlayer[playerDefense * isPlayerStatShown] + strengthFormPlayer[playerStrength * isPlayerStatShown] + dexterityFormPlayer[playerDexterity * isPlayerStatShown] + healthFormPlayer[playerHealth * isPlayerStatShown] + actions[13 * isPlayerReflectionShown] + sanityFormPlayer[playerSanity * isPlayerReflectionShown] + moralityFormPlayer[playerMorality * isPlayerReflectionShown] + actions[12 * isItemShown] + itemForm[item * isItemShown] + actions[11 * isEnemyShown] + enemyForm[enemy * isEnemyShown] + defenseFormEnemy[enemyDefense * isEnemyShown] + strengthFormEnemy[enemyStrength * isEnemyShown] + dexterityFormEnemy[enemyDexterity * isEnemyShown] + healthFormEnemy[enemyHealth * isEnemyShown] + actions[14 * isItemUsed] + itemUsage[itemToUse * isItemUsed] + actions[16 * isItemUnavailable] + itemForm[itemToUse * isItemUnavailable] + itemChoicePresented[1 * readyForPotionUsage] + actions[7 * isItemPickedUp] + itemForm[item * isItemPickedUp] + actions[17 * isBlocked] + actions[18 * isSwordUsed] + enemyForm[enemy * isSwordUsed] + healthFormEnemy[enemyHealth * isSwordUsed] + actions[19 * isEnemyAttacking] + healthFormPlayer[playerHealth * isEnemyAttacking] + actions[20 * isPlayerDead];
             allowPrompt = 0;
             var _loop_1 = function (i) {
                 setTimeout(function () { document.getElementById('info').innerHTML += shownText[i]; }, i * 10);
@@ -554,7 +561,15 @@ window.onload = function () {
             for (var i = 0; i < shownText.length; i++) {
                 _loop_1(i);
             }
-            setTimeout(function () { allowPrompt = 1; console.log("promptAllowed"); }, shownText.length * 10);
+            setTimeout(function () {
+                allowPrompt = 1;
+                console.log("promptAllowed");
+                if (playerHealth < 2) {
+                    allowPrompt = 0;
+                    document.getElementById('info').innerHTML = actions[20 * isPlayerDead];
+                }
+                textSpeed = 3;
+            }, shownText.length * textSpeed);
         }
         return showInfo;
     }());
@@ -576,12 +591,12 @@ window.onload = function () {
                     if (healthPotionAmount >= 1) {
                         enemyOnScreen = 0;
                         new showGraphics(0, 0, floor, 5);
-                        new showInfo(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);
+                        new showInfo(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
                         playerHealth = 11;
                         healthPotionAmount = healthPotionAmount - 1;
                     }
                     else {
-                        new showInfo(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0);
+                        new showInfo(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);
                     }
                     break;
                 case "weapon":
@@ -598,7 +613,7 @@ window.onload = function () {
                             enemyHealth = 1;
                         }
                     }
-                    new showInfo(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0);
+                    new showInfo(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
                     waitForAttack = 1;
                     setTimeout(function () {
                         if (enemyIsAlive == 0) {
@@ -616,16 +631,16 @@ window.onload = function () {
                                 playerHealth = 1;
                             }
                             new showGraphics(enemy + 10, 0, floor, 2);
-                            new showInfo(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+                            new showInfo(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0);
                             waitForAttack = 0;
                         }
-                    }, 3000);
+                    }, 2000);
                     break;
                 case "sanity":
                     if (sanityPotionAmount >= 1) {
                         enemyOnScreen = 0;
                         new showGraphics(0, 0, floor, 5);
-                        new showInfo(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);
+                        new showInfo(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
                         if (playerSanity < 6) {
                             playerSanity = 6;
                         }
@@ -635,14 +650,14 @@ window.onload = function () {
                         sanityPotionAmount = sanityPotionAmount - 1;
                     }
                     else {
-                        new showInfo(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0);
+                        new showInfo(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);
                     }
                     break;
                 case "soul":
                     if (soulAmount >= 1) {
                         enemyOnScreen = 1;
                         new showGraphics(enemy + 10, 0, floor, 6);
-                        new showInfo(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);
+                        new showInfo(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
                         if (enemyHealth > 0) {
                             enemyHealth = enemyHealth - 5;
                             if (enemyHealth < 2) {
@@ -652,7 +667,7 @@ window.onload = function () {
                         soulAmount = soulAmount - 1;
                     }
                     else {
-                        new showInfo(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0);
+                        new showInfo(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);
                     }
                     break;
             }
