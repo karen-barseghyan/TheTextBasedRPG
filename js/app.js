@@ -8,6 +8,7 @@ window.onload = function () {
     //ToDo: enemy sounds, fight sounds, going down sounds, maybe different ambients for different locations...
     //__________________________________________________________________________________________________________________
     //Statistics overall
+    //Floor Building
     var floor = 0;
     var previousFloor = null;
     var enemy = 0;
@@ -17,32 +18,31 @@ window.onload = function () {
     var move = 0;
     var previousMove = null;
     var stage = 0;
-    var itemIsOnGround = 0;
     var animation = 0;
+    //Floor Progression
+    var enemyIsAlive = 0;
+    var itemIsOnGround = 0;
+    //Enemy Stats
     var enemyHealth = 1;
     var enemyDefense = 1;
     var enemyStrength = 1;
     var enemyDexterity = 1;
-    var waitForAttack = 0;
     var enemyOnScreen = 0;
     var itemToUse = 0;
     var potionBackOpen = 0;
     var rummageOpen = 0;
-    var enemyIsAlive = 0;
-    var enemyAttackStrength = 0;
     //Player Stats:
     var playerHealth = 11;
     var playerDefense = 6;
     var playerStrength = 6;
     var playerDexterity = 6;
-    var attackStrength = 0;
     var playerDefenseDebuff = 0;
     var playerStrengthDebuff = 0;
     var playerDexterityDebuff = 0;
     var playerSanity = 6;
     var playerMorality = 6;
     //Inventory Status:
-    var hasMirror = 0;
+    var hasMirror = 1;
     var armorLevel = 0;
     var helmetLevel = 0;
     var glovesLevel = 0;
@@ -53,9 +53,12 @@ window.onload = function () {
     var sanityPotionAmount = 10;
     var ringLevel = 0;
     var shieldLevel = 0;
-    ///////////////////////
+    //Prompt Controllers
     var allowPrompt = 1;
-    //ToDo:Add more stuff, player stats still lacking, add fundamentals for character creation.
+    var waitForAttack = 0;
+    //Combat Controllers
+    var enemyAttackStrength = 0;
+    var attackStrength = 0;
     //__________________________________________________________________________________________________________________
     //Interaction with the game.
     var proceed = document.getElementById("proceed");
@@ -319,7 +322,7 @@ window.onload = function () {
     ];
     //ToDo: More text, it's a text based game, everything has to be described.
     //_________________________________________________________
-    //Movement and actions.
+    //Class that checks what's written.
     var promptCheck = /** @class */ (function () {
         function promptCheck() {
             var prompt;
@@ -426,7 +429,6 @@ window.onload = function () {
                                             armorLevel = 4;
                                         }
                                     }
-                                    //  console.log(playerDefense);
                                     break;
                                 case 9:
                                     if (glovesLevel <= 5) {
@@ -481,6 +483,8 @@ window.onload = function () {
         }
         return promptCheck;
     }());
+    //_________________________________________________________
+    //Class building the Floor.
     var setFloor = /** @class */ (function () {
         function setFloor(difficulty, horror) {
             enemyIsAlive = 1;
@@ -526,6 +530,8 @@ window.onload = function () {
         }
         return setFloor;
     }());
+    //_________________________________________________________
+    //Class showing the text for my text based game.
     var showInfo = /** @class */ (function () {
         function showInfo(isFloorShown, isPlayerStatShown, isPlayerReflectionShown, isItemShown, isEnemyShown, isItemUsed, isItemUnavailable, readyForPotionUsage, isItemPickedUp, isBlocked, isSwordUsed, isEnemyAttacking) {
             /*Debug Checkers
@@ -561,6 +567,8 @@ window.onload = function () {
         }
         return showGraphics;
     }());
+    //_________________________________________________________
+    //Class responsible for item usage (including weapon)
     var useItem = /** @class */ (function () {
         function useItem(whichItem) {
             switch (whichItem) {
@@ -651,6 +659,8 @@ window.onload = function () {
         }
         return useItem;
     }());
+    //_________________________________________________________
+    //Class updating the inventory on right side of the screen.
     var inventory = /** @class */ (function () {
         function inventory(Mirror, Armor, Helmet, Gloves, Keys, Weapon, Health, Souls, Sanity, Ring, Shield) {
             if (Health != 0) {
@@ -743,10 +753,10 @@ window.onload = function () {
 //ToDo, what's needed:
 //Random non-enemy encounters.
 //Random non-enemy events.
-//Combat system.
-//Equip system. (equipping armor and weapons)
-//Potion system.
-//Accessory System.
+//Combat system. - Done.
+//Equip system. (equipping armor and weapons) - Done.
+//Potion system. - Done.
+//Accessory System. - Done.
 //ToDo, extra features:
 //A way to speak to enemies. (?)
 //Sanity Effects. (?)
@@ -754,6 +764,6 @@ window.onload = function () {
 //Moral choices. (?)
 //Saving the previous locations(?)
 //A way to return to previous locations.(?)
-//1.System walki
+//1.System walki - zrobione :)
 //2.System przedmiotów - zrobione :)
 //3.Zrobienie obiektowo - zrobione :)

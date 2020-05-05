@@ -11,6 +11,8 @@ window.onload = () => {
 
     //__________________________________________________________________________________________________________________
     //Statistics overall
+
+    //Floor Building
     let floor = 0;
     let previousFloor = null;
     let enemy = 0;
@@ -20,37 +22,35 @@ window.onload = () => {
     let move = 0;
     let previousMove = null;
     let stage = 0;
-    let itemIsOnGround = 0;
     let animation = 0;
+
+    //Floor Progression
+    let enemyIsAlive = 0;
+    let itemIsOnGround = 0;
+
+    //Enemy Stats
     let enemyHealth = 1;
     let enemyDefense = 1;
     let enemyStrength = 1;
     let enemyDexterity = 1;
-    let waitForAttack = 0;
     let enemyOnScreen = 0;
     let itemToUse = 0;
-
     let potionBackOpen = 0;
     let rummageOpen = 0;
-    let enemyIsAlive = 0;
 
-    let enemyAttackStrength = 0;
     //Player Stats:
-
     let playerHealth = 11;
     let playerDefense = 6;
     let playerStrength = 6;
     let playerDexterity = 6;
-    let attackStrength = 0;
     let playerDefenseDebuff = 0;
     let playerStrengthDebuff = 0;
     let playerDexterityDebuff = 0;
-
     let playerSanity = 6;
     let playerMorality = 6;
 
     //Inventory Status:
-    let hasMirror = 0;
+    let hasMirror = 1;
     let armorLevel = 0;
     let helmetLevel = 0;
     let glovesLevel = 0;
@@ -61,13 +61,14 @@ window.onload = () => {
     let sanityPotionAmount = 10;
     let ringLevel = 0;
     let shieldLevel = 0;
-    ///////////////////////
 
+    //Prompt Controllers
     let allowPrompt = 1;
+    let waitForAttack = 0;
 
-    //ToDo:Add more stuff, player stats still lacking, add fundamentals for character creation.
-
-
+    //Combat Controllers
+    let enemyAttackStrength = 0;
+    let attackStrength = 0;
 
     //__________________________________________________________________________________________________________________
     //Interaction with the game.
@@ -353,7 +354,7 @@ window.onload = () => {
 
 
     //_________________________________________________________
-    //Movement and actions.
+    //Class that checks what's written.
     class promptCheck {
         constructor() {
 
@@ -469,8 +470,6 @@ window.onload = () => {
                                             armorLevel = 4;
                                         }
                                     }
-
-                                    //  console.log(playerDefense);
                                     break;
                                 case 9:
                                     if (glovesLevel <= 5) {
@@ -532,6 +531,8 @@ window.onload = () => {
         }
     }
 
+    //_________________________________________________________
+    //Class building the Floor.
     class setFloor {
         constructor(difficulty, horror) {
             enemyIsAlive = 1;
@@ -583,7 +584,8 @@ window.onload = () => {
         }
     }
 
-
+    //_________________________________________________________
+    //Class showing the text for my text based game.
     class showInfo {
         constructor(isFloorShown, isPlayerStatShown, isPlayerReflectionShown, isItemShown, isEnemyShown, isItemUsed, isItemUnavailable, readyForPotionUsage, isItemPickedUp, isBlocked, isSwordUsed, isEnemyAttacking) {
             /*Debug Checkers
@@ -616,6 +618,8 @@ window.onload = () => {
         }
     }
 
+    //_________________________________________________________
+    //Class responsible for item usage (including weapon)
     class useItem {
         constructor(whichItem) {
 
@@ -731,7 +735,8 @@ window.onload = () => {
         }
     }
 
-
+    //_________________________________________________________
+    //Class updating the inventory on right side of the screen.
     class inventory {
         constructor(Mirror, Armor, Helmet, Gloves, Keys, Weapon, Health, Souls, Sanity, Ring, Shield) {
 
