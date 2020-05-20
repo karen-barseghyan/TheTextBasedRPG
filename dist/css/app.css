@@ -1,0 +1,110 @@
+@font-face {
+    font-family: Old;
+    src: url('../fonts/PressStart2P.ttf') format('truetype');
+}
+
+
+body{
+    font-family: Old;
+    font-size:50px;
+	background-color:black;
+    color:white;
+    margin: 0 auto;
+}
+
+
+h1{
+    position:relative;
+    left:10%;
+}
+
+#visuals{
+    height:35vw;
+    width:50vw;
+    border: 0.3vw white solid;
+    background-color:white;
+    position:absolute;
+    top:1%;
+    left:25%;
+}
+
+input{
+    width:49vw;
+    border: 0.3vw white solid;
+    position:absolute;
+    top:93%;
+    left:25%;
+    padding:0.5vw;
+    font-size:1vw;
+    font-family: Old;
+    color:white;
+    background-color:black;
+}
+
+#info{
+    width:49vw;
+    height:7vw;
+    overflow:hidden;
+    border: 0.3vw white solid;
+    position:absolute;
+    top:74%;
+    left:25%;
+    padding:0.5vw;
+    font-size:1vw;
+    font-family: Old;
+    line-height:1.4vw;
+    color:white;
+    background-color:black;
+}
+
+button{
+    width:5vw;
+    border: 0.3vw white solid;
+    position:absolute;
+    top:93%;
+    right:24.4%;
+    padding:0.5vw;
+    font-size:1vw;
+    font-family: Old;
+    color:white;
+    background-color:black;
+}
+
+
+
+
+#instructions{
+    height:70%;
+    width:23%;
+    position:absolute;
+    left:1%;
+    font-size:1.1vw;
+    line-height:1.5vw;
+    top:2%;
+}
+
+#inventory{
+    height:70%;
+    width:23%;
+    position:absolute;
+    right:0%;
+    font-size:1.1vw;
+    line-height:1.6vw;
+    top:2%;
+}
+
+img{
+    position:absolute;
+    margin-right: auto;
+    margin-left: auto;
+    height:100%;
+    width:100%;
+}
+
+.enabled{
+    color:white;
+}
+
+.disabled{
+    color:gray;
+}
