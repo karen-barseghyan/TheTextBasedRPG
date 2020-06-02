@@ -5,6 +5,7 @@ import { showInfo } from "./showInfo";
 import { showGraphics } from "./showGraphics";
 import { inventory, playerInventoryMemory } from "./inventory";
 import { useItem } from "./useItem";
+import * as settings from "./settings";
 
     //_________________________________________________________
     //Class that checks what's written.
@@ -22,28 +23,28 @@ export class promptCheck {
         (<HTMLInputElement>document.getElementById('written')).placeholder = "";
         console.log(prompt);
 
-        if (promptControllerMemory.allowPrompt == 1 && promptControllerMemory.waitForAttack == 0) {
+        if (promptControllerMemory.allowPrompt == true && promptControllerMemory.waitForAttack == false) {
             switch (prompt.charAt(0).toLowerCase()) {
-                case "d":
-                    enemyStatsMemory.enemyOnScreen = 0;
-
+                case settings.goDown:
+                    enemyStatsMemory.enemyOnScreen = false;
                     if (currentstage.getCurrentStage() == 100) {
+                        //Sprawdź wygraną tylko raz
                         showDialogue.showInfo_isVictory();
-                        promptControllerMemory.allowPrompt = 0;
-                        promptControllerMemory.waitForAttack = 1;
+                        promptControllerMemory.allowPrompt = false;
+                        promptControllerMemory.waitForAttack = true;
                     }
 
 
-                    if (floorBuilderMemory.enemyIsAlive == 1 && playerInventoryMemory.keyAmount < 1 && currentstage.getCurrentStage() != 0 && currentstage.getCurrentStage() != 100) {
+                    if (floorBuilderMemory.enemyIsAlive == true && playerInventoryMemory.keyAmount < 1 && currentstage.getCurrentStage() != 0 && currentstage.getCurrentStage() != 100) {
                         showDialogue.showInfo_isBlocked();
                     }
-                    if (floorBuilderMemory.enemyIsAlive == 1 && playerInventoryMemory.keyAmount > 0 && currentstage.getCurrentStage() != 100) {
+                    if (floorBuilderMemory.enemyIsAlive == true && playerInventoryMemory.keyAmount > 0 && currentstage.getCurrentStage() != 100) {
                         playerInventoryMemory.keyAmount = playerInventoryMemory.keyAmount - 1;
                         new setFloor(1, 0, stage);
                         new showGraphics(0, 0, floorBuilderMemory.floor, 0);
                         showDialogue.showInfo_isFloorShown();
                     }
-                    if (floorBuilderMemory.enemyIsAlive == 0 && currentstage.getCurrentStage() != 100) {
+                    if (floorBuilderMemory.enemyIsAlive == false && currentstage.getCurrentStage() != 100) {
                         new setFloor(1, 0, stage);
                         new showGraphics(0, 0, floorBuilderMemory.floor, 0);
                       showDialogue.showInfo_isFloorShown();
@@ -54,22 +55,22 @@ export class promptCheck {
 
 
                     break;
-                case "i":
+                case settings.checkEnemy:
                 
-                if (floorBuilderMemory.enemyIsAlive==1){
-                    if (enemyStatsMemory.enemyOnScreen == 0) {
+                if (floorBuilderMemory.enemyIsAlive==true){
+                    if (enemyStatsMemory.enemyOnScreen == false) {
 
                         new showGraphics(floorBuilderMemory.enemy, 0, floorBuilderMemory.floor, floorBuilderMemory.animation);
                         showDialogue.showInfo_isEnemyShown();
                     }
 
-                    if (enemyStatsMemory.enemyOnScreen == 1) {
+                    if (enemyStatsMemory.enemyOnScreen == true) {
                         showDialogue.showInfo_isEnemyShown();
                     }
-                    enemyStatsMemory.enemyOnScreen = 1;
+                    enemyStatsMemory.enemyOnScreen = true;
                 }
 
-                if (floorBuilderMemory.enemyIsAlive==0){
+                if (floorBuilderMemory.enemyIsAlive==false){
                     showDialogue.showInfo_isEnemyShown();
                 }
 
@@ -77,32 +78,32 @@ export class promptCheck {
 
                   
                     break;
-                case "r":
-                    if (floorBuilderMemory.itemIsOnGround == 1) {
-                        enemyStatsMemory.enemyOnScreen = 0;
-                        enemyStatsMemory.rummageOpen = 1;
+                case settings.checkItem:
+                    if (floorBuilderMemory.itemIsOnGround == true) {
+                        enemyStatsMemory.enemyOnScreen = false;
+                        enemyStatsMemory.rummageOpen = true;
                         new showGraphics(0, floorBuilderMemory.item, floorBuilderMemory.floor, floorBuilderMemory.animation);
                         showDialogue.showInfo_isItemShown();
                     }
                     break;
-                case "c":
+                case settings.checkPlayer:
                     showDialogue.showInfo_isPlayerStatShown();
                     break;
-                case "m":
+                case settings.checkMirror:
                     showDialogue.showInfo_isPlayerReflectionShown();
                     break;
 
-                case "f":
+                case settings.attack:
                    // new UseItemClass("weapon");
-                   new useItem("weapon");
+                   new useItem(settings.attack);
                     break;
 
 
-                case "e":
-                    enemyStatsMemory.enemyOnScreen = 0;
-                    if (floorBuilderMemory.itemIsOnGround == 1 && enemyStatsMemory.rummageOpen == 1) {
-                        enemyStatsMemory.rummageOpen = 0;
-                        floorBuilderMemory.itemIsOnGround = 0;
+                case settings.pickUpItem:
+                    enemyStatsMemory.enemyOnScreen = false;
+                    if (floorBuilderMemory.itemIsOnGround == true && enemyStatsMemory.rummageOpen == true) {
+                        enemyStatsMemory.rummageOpen = false;
+                        floorBuilderMemory.itemIsOnGround = false;
                         showDialogue.showInfo_isItemPickedUp();
                         new showGraphics(0, 0, floorBuilderMemory.floor, 0);
                         switch (floorBuilderMemory.item) {
@@ -170,36 +171,36 @@ export class promptCheck {
                     }
                     break;
 
-                case "p":
-                    enemyStatsMemory.potionBackOpen = 1;
+                case settings.openPotionBag:
+                    enemyStatsMemory.potionBackOpen = true;
                     showDialogue.showInfo_readyForPotionUsage();
                     break;
 
-                case "s":
-                    if (enemyStatsMemory.potionBackOpen == 1) {
+                case settings.useSanityPotion:
+                    if (enemyStatsMemory.potionBackOpen == true) {
                         enemyStatsMemory.itemToUse = 7;
                         //new UseItemClass("sanity");
-                        new useItem("sanity");
-                        enemyStatsMemory.potionBackOpen = 0;
+                        new useItem(settings.useSanityPotion);
+                        enemyStatsMemory.potionBackOpen = false;
                     }
                     break;
 
-                case "y":
-                    if (enemyStatsMemory.potionBackOpen == 1) {
+                case settings.useSoul:
+                    if (enemyStatsMemory.potionBackOpen == true) {
                         enemyStatsMemory.itemToUse = 6;
                         //new UseItemClass("soul");
-                        new useItem("soul");
-                        enemyStatsMemory.potionBackOpen = 0;
+                        new useItem(settings.useSoul);
+                        enemyStatsMemory.potionBackOpen = false;
                     }
                     break;
 
 
-                case "h":
-                    if (enemyStatsMemory.potionBackOpen == 1) {
+                case settings.useHealthPotion:
+                    if (enemyStatsMemory.potionBackOpen == true) {
                         enemyStatsMemory.itemToUse = 5;
                         //new UseItemClass("health");
-                        new useItem("health");
-                        enemyStatsMemory.potionBackOpen = 0;
+                        new useItem(settings.useHealthPotion);
+                        enemyStatsMemory.potionBackOpen = false;
                     }
                     break;
             }
@@ -207,7 +208,7 @@ export class promptCheck {
         new inventory(playerInventoryMemory.hasMirror, playerInventoryMemory.armorLevel, playerInventoryMemory.helmetLevel, playerInventoryMemory.glovesLevel, playerInventoryMemory.keyAmount, playerInventoryMemory.weaponLevel, playerInventoryMemory.healthPotionAmount, playerInventoryMemory.soulAmount, playerInventoryMemory.sanityPotionAmount, playerInventoryMemory.ringLevel, playerInventoryMemory.shieldLevel);
         if (enemyStatsMemory.enemyHealth < 2) {
             enemyStatsMemory.enemyHealth = 1;
-            floorBuilderMemory.enemyIsAlive = 0;
+            floorBuilderMemory.enemyIsAlive = false;
         }
         prompter.focus();
         return prompt;

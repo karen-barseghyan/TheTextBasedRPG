@@ -10,18 +10,6 @@
 
 export class floorBuilder{
 
-/*
-    let floor = 0;
-    let previousFloor: number = null;
-    let enemy = 0;
-    let previousEnemy: number = null;
-    let item = 0;
-    let previousItem: number = null;
-    let move = 0;
-    let previousMove: number = null;
-    let enemyIsAlive = 0;
-    let itemIsOnGround = 0;
-*/
 
 floor : number;
 previousFloor: number;
@@ -31,12 +19,12 @@ item : number;
 previousItem: number;
 move : number;
 previousMove: number;
-enemyIsAlive: number;
-itemIsOnGround: number;
+enemyIsAlive: boolean;
+itemIsOnGround: boolean;
 animation: number;
 
 
-constructor(floor : number, previousFloor: number, enemy : number, previousEnemy : number, item : number, previousItem: number, move : number, previousMove: number, enemyIsAlive: number, itemIsOnGround: number, animation: number){
+constructor(floor : number, previousFloor: number, enemy : number, previousEnemy : number, item : number, previousItem: number, move : number, previousMove: number, enemyIsAlive: boolean, itemIsOnGround: boolean, animation: number){
 
 this.floor = floor;
 this.previousFloor = previousFloor;

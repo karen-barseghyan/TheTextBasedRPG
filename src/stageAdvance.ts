@@ -14,7 +14,7 @@ export class stageAdvance{
     }
     increaseCurrentStage(): void {
         this.stage = this.stage + 1;
-        console.log("działa");
+        //console.log("działa");
    }
    
 }

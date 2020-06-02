@@ -1,10 +1,5 @@
 export class combatController{
 
-/*
-    let enemyAttackStrength = 0;
-    let attackStrength = 0;
-
-*/
 
 enemyAttackStrength : number;
 attackStrength : number;

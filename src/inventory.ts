@@ -3,13 +3,14 @@
 
 import { playerStatsMemory } from "./index";
 import { playerInventory } from "./playerInventory";
-export let playerInventoryMemory = new playerInventory(1, 0, 0, 0, 10, 5, 0, 10, 10, 0, 0);
+import * as settings from "./settings";
+export let playerInventoryMemory = new playerInventory(settings.startingHasMirror, settings.startingArmorLevel, settings.startingHelmetLevel, settings.startingGlovesLevel, settings.startingSoulAmount, settings.startingKeyAmount, settings.startingWeaponLevel, settings.startingHealthPotionAmount, settings.startingSanityPotionAmount, settings.startingRingLevel, settings.startingShieldLevel);
     //Class updating the inventory on right side of the screen.
     export class inventory {
         constructor(Mirror: number, Armor: number, Helmet: number, Gloves: number, Keys: number, Weapon: number, Health: string | number, Souls: number, Sanity: string | number, Ring: number, Shield: number) {
 
-            if (Health != 0) {
-                if (Health == 1) {
+            if (Health != settings.itemNoDisplay) {
+                if (Health == settings.itemSingular) {
                     document.getElementById("HealthInventory").innerHTML = "<u>" + Health + " Health Potion</u></br> </br>";
                 }
                 else {
@@ -20,8 +21,8 @@ export let playerInventoryMemory = new playerInventory(1, 0, 0, 0, 10, 5, 0, 10,
                 document.getElementById("HealthInventory").innerHTML = "";
 
 
-            if (Sanity != 0) {
-                if (Sanity == 1) {
+            if (Sanity != settings.itemNoDisplay) {
+                if (Sanity == settings.itemSingular) {
                     document.getElementById("SanityInventory").innerHTML = "<u>" + Sanity + " Sanity Potion</u></br> </br>";
                 }
                 else {
@@ -32,12 +33,12 @@ export let playerInventoryMemory = new playerInventory(1, 0, 0, 0, 10, 5, 0, 10,
                 document.getElementById("SanityInventory").innerHTML = "";
 
 
-            if (Souls != 0) {
-                if (Souls == 1) {
-                    document.getElementById("SoulInventory").innerHTML = "<u>" + 5 + " Stray Soul</u></br> </br>";
+            if (Souls != settings.itemNoDisplay) {
+                if (Souls == settings.itemSingular) {
+                    document.getElementById("SoulInventory").innerHTML = "<u>" + Souls + " Stray Soul</u></br> </br>";
                 }
                 else {
-                    document.getElementById("SoulInventory").innerHTML = "<u>" + 5 + " Stray Souls</u></br> </br>";
+                    document.getElementById("SoulInventory").innerHTML = "<u>" + Souls + " Stray Souls</u></br> </br>";
                 }
             }
             else
@@ -45,8 +46,8 @@ export let playerInventoryMemory = new playerInventory(1, 0, 0, 0, 10, 5, 0, 10,
 
 
 
-            if (Keys != 0) {
-                if (Keys == 1) {
+            if (Keys != settings.itemNoDisplay) {
+                if (Keys == settings.itemSingular) {
                     document.getElementById("KeysInventory").innerHTML = "<u>" + playerInventoryMemory.keyAmount + " Rusty Key</u></br> </br>";
                 }
                 else {
@@ -58,10 +59,10 @@ export let playerInventoryMemory = new playerInventory(1, 0, 0, 0, 10, 5, 0, 10,
 
 
 
-            if (Armor != 0) {
-                playerStatsMemory.playerDefense = 6 + playerInventoryMemory.armorLevel - playerStatsMemory.playerDefenseDebuff;
-                if (playerStatsMemory.playerDefense > 11) {
-                    playerStatsMemory.playerDefense = 11;
+            if (Armor != settings.itemNoDisplay) {
+                playerStatsMemory.playerDefense = settings.basePlayerStats + playerInventoryMemory.armorLevel - playerStatsMemory.playerDefenseDebuff;
+                if (playerStatsMemory.playerDefense > settings.maxPlayerStats) {
+                    playerStatsMemory.playerDefense = settings.maxPlayerStats;
                 }
                 document.getElementById("ArmorInventory").innerHTML = "<u>Tough Armor</u> - +" + playerInventoryMemory.armorLevel + " defense bonus. </br> </br>";
 
@@ -70,14 +71,14 @@ export let playerInventoryMemory = new playerInventory(1, 0, 0, 0, 10, 5, 0, 10,
                 document.getElementById("ArmorInventory").innerHTML = "<u>Cloak</u> - No bonuses. </br> </br>";
 
 
-            if (Shield != 0) {
+            if (Shield != settings.itemNoDisplay) {
                 document.getElementById("ShieldInventory").innerHTML = "<u>Solid Shield</u> - " + playerInventoryMemory.shieldLevel + "0% enemy damage reduction. </br> </br>";
 
             }
             else
                 document.getElementById("ShieldInventory").innerHTML = "";
 
-            if (Gloves != 0) {
+            if (Gloves != settings.itemNoDisplay) {
                 document.getElementById("GlovesInventory").innerHTML = "<u>Spiked Gloves</u> - " + playerInventoryMemory.glovesLevel + "0% additional damage. </br> </br>";
 
             }
@@ -87,10 +88,10 @@ export let playerInventoryMemory = new playerInventory(1, 0, 0, 0, 10, 5, 0, 10,
 
 
 
-            if (Helmet != 0) {
-                playerStatsMemory.playerStrength = 6 + playerInventoryMemory.helmetLevel - playerStatsMemory.playerStrengthDebuff;
-                if (playerStatsMemory.playerStrength > 11) {
-                    playerStatsMemory.playerStrength = 11;
+            if (Helmet != settings.itemNoDisplay) {
+                playerStatsMemory.playerStrength = settings.basePlayerStats + playerInventoryMemory.helmetLevel - playerStatsMemory.playerStrengthDebuff;
+                if (playerStatsMemory.playerStrength > settings.maxPlayerStats) {
+                    playerStatsMemory.playerStrength = settings.maxPlayerStats;
                 }
                 document.getElementById("HelmetInventory").innerHTML = "<u>Steel Helmet</u> - +" + playerInventoryMemory.helmetLevel + " strength bonus. </br> </br>";
             }
@@ -98,10 +99,10 @@ export let playerInventoryMemory = new playerInventory(1, 0, 0, 0, 10, 5, 0, 10,
                 document.getElementById("HelmetInventory").innerHTML = "<u>Cloth Hood</u> - No bonuses. </br> </br>";
 
 
-            if (Ring != 0) {
-                playerStatsMemory.playerDexterity = 6 + playerInventoryMemory.ringLevel - playerStatsMemory.playerDexterityDebuff;
-                if (playerStatsMemory.playerDexterity > 11) {
-                    playerStatsMemory.playerDexterity = 11;
+            if (Ring != settings.itemNoDisplay) {
+                playerStatsMemory.playerDexterity = settings.basePlayerStats + playerInventoryMemory.ringLevel - playerStatsMemory.playerDexterityDebuff;
+                if (playerStatsMemory.playerDexterity > settings.maxPlayerStats) {
+                    playerStatsMemory.playerDexterity = settings.maxPlayerStats;
                 }
                 document.getElementById("RingInventory").innerHTML = "<u>Shiny Ring</u> - +" + playerInventoryMemory.ringLevel + " dexterity bonus. </br> </br>";
 
@@ -110,7 +111,7 @@ export let playerInventoryMemory = new playerInventory(1, 0, 0, 0, 10, 5, 0, 10,
                 document.getElementById("RingInventory").innerHTML = "";
 
 
-            if (Weapon != 0) {
+            if (Weapon != settings.itemNoDisplay) {
                 document.getElementById("WeaponInventory").innerHTML = "<u>Sharp Sword</u> - " + playerInventoryMemory.weaponLevel + " attack power. </br> </br>";
 
             }
@@ -123,8 +124,5 @@ export let playerInventoryMemory = new playerInventory(1, 0, 0, 0, 10, 5, 0, 10,
 
     }
 
-     //Inventory Status:
-
-    //let playerInventoryMemory = new playerInventory(1, 0, 0, 0, 10, 5, 0, 10, 10, 0, 0);
     new inventory(playerInventoryMemory.hasMirror, playerInventoryMemory.armorLevel, playerInventoryMemory.helmetLevel, playerInventoryMemory.glovesLevel, playerInventoryMemory.keyAmount, playerInventoryMemory.weaponLevel, playerInventoryMemory.healthPotionAmount, playerInventoryMemory.soulAmount, playerInventoryMemory.sanityPotionAmount, playerInventoryMemory.ringLevel, playerInventoryMemory.shieldLevel);
 

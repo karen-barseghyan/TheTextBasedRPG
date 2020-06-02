@@ -1,18 +1,12 @@
 export class promptController{
 
-/*
-    let allowPrompt = 1;
-    let waitForAttack = 0;
-    let textSpeed=10;
-*/
-
-allowPrompt : number;
-waitForAttack : number;
+allowPrompt : boolean;
+waitForAttack : boolean;
 textSpeed: number;
 
 
 
-constructor(allowPrompt : number, waitForAttack : number, textSpeed: number){
+constructor(allowPrompt : boolean, waitForAttack : boolean, textSpeed: number){
 this.allowPrompt = allowPrompt;
 this.waitForAttack =  waitForAttack;
 this.textSpeed = textSpeed;

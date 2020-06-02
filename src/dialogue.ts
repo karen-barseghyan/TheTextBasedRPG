@@ -283,7 +283,7 @@ export class dialogue{
             "There is no question about it, the red stains on your face are blood, you try to rub your eyes with your hand, but it does not help. ",
             "Your face seems to have red stains on it, but they disappear as soon as you blink. ",
             "There is nothing else out of ordinary about your reflection. ",
-            "You take a peak at the mirror and you could've swore you saw a faint halo above your head, for split second, was it a delusion? Regardless, it fuels you with joy. INCREASES SANITY BY 20%. ",
+            "You take a peak at the mirror and you could've swore you saw a faint halo above your head, for split second, was it a delusion? Regardless, it fuels you with joy. ",
             "The halo above your head is bright, the glow feels your heart with determination. ",
             "The halo is clearly visible, you can even see a pair of wings behind your back. ",
             "You can barely see yourself, the holy glow in the mirror is overwhelming you. ",

@@ -1,30 +1,19 @@
 export class enemyStats{
 
-/*
-    let enemyHealth = 1;
-    let enemyDefense = 1;
-    let enemyStrength = 1;
-    let enemyDexterity = 1;
-    let enemyOnScreen = 0;
-    let itemToUse = 0;
-    let potionBackOpen = 0;
-    let rummageOpen = 0;
-
-*/
 
 enemyHealth : number;
 enemyDefense : number;
 enemyStrength : number;
 enemyDexterity : number;
-enemyOnScreen : number;
+enemyOnScreen : boolean;
 itemToUse : number;
-potionBackOpen : number;
-rummageOpen : number;
+potionBackOpen : boolean;
+rummageOpen : boolean;
 
 
 
 
-    constructor(enemyHealth : number, enemyDefense : number, enemyStrength : number, enemyDexterity : number, enemyOnScreen : number, itemToUse : number, potionBackOpen : number, rummageOpen : number){
+    constructor(enemyHealth : number, enemyDefense : number, enemyStrength : number, enemyDexterity : number, enemyOnScreen : boolean, itemToUse : number, potionBackOpen : boolean, rummageOpen : boolean){
       this.enemyHealth = enemyHealth;
       this.enemyDefense = enemyDefense;
       this.enemyStrength = enemyStrength;
