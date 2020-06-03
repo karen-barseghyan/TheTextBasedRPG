@@ -7,13 +7,18 @@ import { inventory, playerInventoryMemory } from "./inventory";
 import { useItem } from "./useItem";
 import * as settings from "./settings";
 
-    //_________________________________________________________
-    //Class that checks what's written.
+//_________________________________________________________
+//Class that checks what's written.
 
 
 
 export class promptCheck {
-    constructor(currentstage: stageAdvance, showDialogue: showInfo) {
+
+
+    constructor() {
+    }
+
+    checkPrompt(currentstage: stageAdvance, showDialogue: showInfo, useItems: useItem, setMyFloor: setFloor) {
 
         let prompt;
         let prompter;
@@ -40,43 +45,43 @@ export class promptCheck {
                     }
                     if (floorBuilderMemory.enemyIsAlive == true && playerInventoryMemory.keyAmount >= 1 && currentstage.getCurrentStage() != settings.whenVictory) {
                         playerInventoryMemory.keyAmount = playerInventoryMemory.keyAmount - 1;
-                        new setFloor(1, 0, stage);
+                        setMyFloor.setTheFloor(1, 0, stage);
                         new showGraphics(settings.noGraphics, settings.noGraphics, floorBuilderMemory.floor, settings.noGraphics);
                         showDialogue.showInfo_isFloorShown();
                     }
                     if (floorBuilderMemory.enemyIsAlive == false && currentstage.getCurrentStage() != settings.whenVictory) {
-                        new setFloor(1, 0, stage);
+                        setMyFloor.setTheFloor(1, 0, stage);
                         new showGraphics(settings.noGraphics, settings.noGraphics, floorBuilderMemory.floor, settings.noGraphics);
-                      showDialogue.showInfo_isFloorShown();
-                     
-                      
+                        showDialogue.showInfo_isFloorShown();
+
+
                     }
 
 
 
                     break;
                 case settings.checkEnemy:
-                
-                if (floorBuilderMemory.enemyIsAlive==true){
-                    if (enemyStatsMemory.enemyOnScreen == false) {
 
-                        new showGraphics(floorBuilderMemory.enemy, settings.noGraphics, floorBuilderMemory.floor, floorBuilderMemory.animation);
+                    if (floorBuilderMemory.enemyIsAlive == true) {
+                        if (enemyStatsMemory.enemyOnScreen == false) {
+
+                            new showGraphics(floorBuilderMemory.enemy, settings.noGraphics, floorBuilderMemory.floor, floorBuilderMemory.animation);
+                            showDialogue.showInfo_isEnemyShown();
+                        }
+
+                        if (enemyStatsMemory.enemyOnScreen == true) {
+                            showDialogue.showInfo_isEnemyShown();
+                        }
+                        enemyStatsMemory.enemyOnScreen = true;
+                    }
+
+                    if (floorBuilderMemory.enemyIsAlive == false) {
                         showDialogue.showInfo_isEnemyShown();
                     }
 
-                    if (enemyStatsMemory.enemyOnScreen == true) {
-                        showDialogue.showInfo_isEnemyShown();
-                    }
-                    enemyStatsMemory.enemyOnScreen = true;
-                }
-
-                if (floorBuilderMemory.enemyIsAlive==false){
-                    showDialogue.showInfo_isEnemyShown();
-                }
 
 
 
-                  
                     break;
                 case settings.checkItem:
                     if (floorBuilderMemory.itemIsOnGround == true) {
@@ -94,8 +99,8 @@ export class promptCheck {
                     break;
 
                 case settings.attack:
-                   // new UseItemClass("weapon");
-                   new useItem(settings.attack);
+                    // new UseItemClass("weapon");
+                    useItems.whichItemToUse(settings.attack);
                     break;
 
 
@@ -179,7 +184,7 @@ export class promptCheck {
                 case settings.useSanityPotion:
                     if (enemyStatsMemory.potionBackOpen == true) {
                         enemyStatsMemory.itemToUse = settings.sanityGraphic;
-                        new useItem(settings.useSanityPotion);
+                        useItems.whichItemToUse(settings.useSanityPotion);
                         enemyStatsMemory.potionBackOpen = false;
                     }
                     break;
@@ -187,7 +192,7 @@ export class promptCheck {
                 case settings.useSoul:
                     if (enemyStatsMemory.potionBackOpen == true) {
                         enemyStatsMemory.itemToUse = settings.soulGraphic;
-                        new useItem(settings.useSoul);
+                        useItems.whichItemToUse(settings.useSoul);
                         enemyStatsMemory.potionBackOpen = false;
                     }
                     break;
@@ -196,7 +201,7 @@ export class promptCheck {
                 case settings.useHealthPotion:
                     if (enemyStatsMemory.potionBackOpen == true) {
                         enemyStatsMemory.itemToUse = settings.potionGraphic;
-                        new useItem(settings.useHealthPotion);
+                        useItems.whichItemToUse(settings.useHealthPotion);
                         enemyStatsMemory.potionBackOpen = false;
                     }
                     break;

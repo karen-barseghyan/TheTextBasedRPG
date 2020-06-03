@@ -1,33 +1,33 @@
 
-    //__________________________________________________________________________________________________________________
-    //All Text in the game.
+//__________________________________________________________________________________________________________________
+//All Text in the game.
 
 
 
 
-export class dialogue{
+export class dialogue {
 
-    movingQuotes : string[];
-    movingPlace : string[];
-    actions : string[];
-    enemyForm : string[];
-    itemForm : string[];
-    itemUsage : string[];
-    sanityPotionUsage : string[];
+    movingQuotes: string[];
+    movingPlace: string[];
+    actions: string[];
+    enemyForm: string[];
+    itemForm: string[];
+    itemUsage: string[];
+    sanityPotionUsage: string[];
     itemChoicePresented: string[];
-    defenseFormEnemy : string[];
-    defenseFormPlayer : string[];
-    dexterityFormEnemy : string[];
-    dexterityFormPlayer : string[];
-    strengthFormEnemy : string[];
-    strengthFormPlayer : string[];
-    healthFormEnemy : string[];
-    healthFormPlayer : string[];
-    sanityFormPlayer : string[];
-    moralityFormPlayer : string[];
+    defenseFormEnemy: string[];
+    defenseFormPlayer: string[];
+    dexterityFormEnemy: string[];
+    dexterityFormPlayer: string[];
+    strengthFormEnemy: string[];
+    strengthFormPlayer: string[];
+    healthFormEnemy: string[];
+    healthFormPlayer: string[];
+    sanityFormPlayer: string[];
+    moralityFormPlayer: string[];
 
 
-    constructor(){
+    constructor() {
 
         this.movingQuotes = [
             "",
@@ -111,7 +111,7 @@ export class dialogue{
             "a pair of spiked Gloves. ",
             "a steel Helmet. ",
         ]
-    
+
         this.itemUsage = [
             "",
             "a sharp Sword, you hope it's stronger than your previous sword. ",
@@ -125,8 +125,8 @@ export class dialogue{
             "a pair of spiked Gloves, these really pack a punch. ",
             "a steel Helmet, it fills your with power! ",
         ]
-    
-    
+
+
         this.sanityPotionUsage = [
             "",
             "a Sanity Potion, you feel happier. Attached to the bottle there is a hand-drawn picture of a girl with a red ribbon taking her own life, with the words Happy Thoughts next to her, it seems the potion couldn't help her. ",
@@ -135,7 +135,7 @@ export class dialogue{
             "a Sanity Potion, you cry tears of happiness. ",
             "a Sanity Potion, i was half full... the stains on the label are tear stains, you hope those were tears of happiness. ",
         ]
-    
+
         this.itemChoicePresented = [
             "",
             "What do you want to use? a [H]ealth Potion, a [S]anity Potion or the Stra[Y] Soul?",
@@ -144,8 +144,8 @@ export class dialogue{
             "Are you sure you want to release the abandoned soul? It looks vengeful. ",
             "Are you sure you want to drink the Health Potion? Are you desperate enough to use it now?"
         ]
-    
-    
+
+
         this.defenseFormEnemy = [
             "",
             "He fell apart. ",
@@ -244,7 +244,7 @@ export class dialogue{
             "He is slightly bruised. ",
             "He doesn't look wounded. ",
         ]
-    
+
         this.healthFormPlayer = [
             "",
             "You are dead, GAME OVER. ",
@@ -259,7 +259,7 @@ export class dialogue{
             "You are slightly bruised. ",
             "You don't look wounded. ",
         ]
-    
+
         this.sanityFormPlayer = [
             "",
             "You have lost the will to live, you are dead inside and desire to be dead outside as well. ",
@@ -274,7 +274,7 @@ export class dialogue{
             "You look excited to go to the next room. ",
             "Even if you die, you know you'll die happy, the journey was the destination for you. ",
         ]
-    
+
         this.moralityFormPlayer = [
             "",
             "You take a glance at the mirror and quickly look away, but the image is seared into your eyes, it is your tortured soul in hell, you can no longer hold back your true self. ",
@@ -289,6 +289,6 @@ export class dialogue{
             "You can barely see yourself, the holy glow in the mirror is overwhelming you. ",
             "You take a glance at the mirror and it almost blinds you, but you clearly saw the image of yourself in heaven, you are no longer afraid of death. ",
         ]
-    }        
+    }
 
 }

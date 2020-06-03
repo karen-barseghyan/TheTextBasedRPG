@@ -6,7 +6,10 @@ import * as settings from "./settings";
 import { dialoguebank, playerStatsMemory, promptControllerMemory } from "./index";
 
 export class setFloor {
-    constructor(difficulty: number, horror: number, currentstage: stageAdvance) {
+    constructor() {
+    }
+
+    setTheFloor(difficulty: number, horror: number, currentstage: stageAdvance) : void  {
         floorBuilderMemory.enemyIsAlive = true;
         floorBuilderMemory.itemIsOnGround = true;
         currentstage.increaseCurrentStage();

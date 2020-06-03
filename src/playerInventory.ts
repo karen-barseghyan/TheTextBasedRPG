@@ -27,18 +27,4 @@ shieldLevel : number;
       this.ringLevel = ringLevel;
       this.shieldLevel = shieldLevel;
     }
- /*
-    getCurrentStage(): number {
-        return this.stage;
-    }
-    setCurrentStage(stage: number): void {
-         this.stage = stage;
-    }
-    increaseCurrentStage(): void {
-        this.stage = this.stage + 1;
-        
-        console.log("działa");
-   }
-   */
-  
 }
