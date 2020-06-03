@@ -14,7 +14,7 @@ import * as settings from "./settings";
                 case settings.useHealthPotion:
                     if (playerInventoryMemory.healthPotionAmount >= settings.itemSingular) {
                         enemyStatsMemory.enemyOnScreen = false;
-                        new showGraphics(0, 0, floorBuilderMemory.floor, 5);
+                        new showGraphics(settings.noGraphics, settings.noGraphics, floorBuilderMemory.floor, settings.potionAnimation);
                         showDialogue.showInfo_isItemUsed();
                         playerStatsMemory.playerHealth = settings.maxPlayerStats;
                         playerInventoryMemory.healthPotionAmount = playerInventoryMemory.healthPotionAmount - settings.itemSingular;
@@ -26,11 +26,11 @@ import * as settings from "./settings";
 
                 case settings.attack:
                     enemyStatsMemory.enemyOnScreen = true;
-                    new showGraphics(floorBuilderMemory.enemy + 10, 0, floorBuilderMemory.floor, 1);
+                    new showGraphics(floorBuilderMemory.enemy + settings.enemyAnimationOffset, settings.noGraphics, floorBuilderMemory.floor, settings.playerAttackAnimation);
                     if (enemyStatsMemory.enemyHealth >= settings.enemyDead) {
-                        combatControllerMemory.attackStrength = Math.round(playerInventoryMemory.weaponLevel + playerStatsMemory.playerStrength - enemyStatsMemory.enemyDefense - enemyStatsMemory.enemyDexterity + (0.5 * playerInventoryMemory.glovesLevel));
-                        if (combatControllerMemory.attackStrength < 1) {
-                            combatControllerMemory.attackStrength = 1;
+                        combatControllerMemory.attackStrength = Math.round(playerInventoryMemory.weaponLevel + playerStatsMemory.playerStrength - enemyStatsMemory.enemyDefense - enemyStatsMemory.enemyDexterity + (settings.modifierMultiplier * playerInventoryMemory.glovesLevel));
+                        if (combatControllerMemory.attackStrength < settings.minimumAttack) {
+                            combatControllerMemory.attackStrength = settings.minimumAttack;
                         }
                         console.log("Your power" + combatControllerMemory.attackStrength);
                         enemyStatsMemory.enemyHealth = enemyStatsMemory.enemyHealth - combatControllerMemory.attackStrength;
@@ -53,32 +53,32 @@ import * as settings from "./settings";
 
                         if (floorBuilderMemory.enemyIsAlive == true) {
 
-                            combatControllerMemory.enemyAttackStrength = Math.round(enemyStatsMemory.enemyStrength - (playerStatsMemory.playerDefense / 5) - (playerStatsMemory.playerDexterity / 5) - (0.5 * playerInventoryMemory.shieldLevel));
+                            combatControllerMemory.enemyAttackStrength = Math.round(enemyStatsMemory.enemyStrength - (playerStatsMemory.playerDefense / settings.modifierDivider) - (playerStatsMemory.playerDexterity / settings.modifierDivider) - (settings.modifierMultiplier * playerInventoryMemory.shieldLevel));
 
                             console.log("Enemy power" + combatControllerMemory.enemyAttackStrength);
 
-                            if (combatControllerMemory.enemyAttackStrength < 0) {
-                                combatControllerMemory.enemyAttackStrength = 0;
+                            if (combatControllerMemory.enemyAttackStrength < settings.harmlessAttack) {
+                                combatControllerMemory.enemyAttackStrength = settings.harmlessAttack;
                             }
 
                             playerStatsMemory.playerHealth = playerStatsMemory.playerHealth - combatControllerMemory.enemyAttackStrength;
                             
                             if (playerStatsMemory.playerHealth < settings.playerIsDead) {
-                                if (playerStatsMemory.playerSanity > 1){
+                                if (playerStatsMemory.playerSanity > settings.sanityDrain){
                                     playerStatsMemory.playerHealth = settings.sanityShield;
                                     playerStatsMemory.playerSanity = playerStatsMemory.playerSanity - settings.sanityDrain;
                                     console.log("Sanity Hit: Taken, current Sanity:" + playerStatsMemory.playerSanity);
                                 }
                                 else{
-                                playerStatsMemory.playerHealth = 1;
+                                playerStatsMemory.playerHealth = settings.playerMinimumHealth;
                                 }
                             }
 
-                            new showGraphics(floorBuilderMemory.enemy + 10, 0, floorBuilderMemory.floor, 2);
+                            new showGraphics(floorBuilderMemory.enemy+ + settings.enemyAnimationOffset, settings.noGraphics, floorBuilderMemory.floor, settings.enemyAttackAnimation);
                             showDialogue.showInfo_isEnemyAttacking();
                             promptControllerMemory.waitForAttack = false;
                         }
-                    }, 2000);
+                    }, settings.attackDelay);
 
 
 
@@ -88,37 +88,37 @@ import * as settings from "./settings";
 
 
                 case settings.useSanityPotion:
-                    if (playerInventoryMemory.sanityPotionAmount >= 1) {
+                    if (playerInventoryMemory.sanityPotionAmount >= settings.itemSingular) {
                         enemyStatsMemory.enemyOnScreen = false;
-                        new showGraphics(0, 0, floorBuilderMemory.floor, 5);
+                        new showGraphics(settings.noGraphics, settings.noGraphics, floorBuilderMemory.floor, settings.potionAnimation);
                         showDialogue.showInfo_isItemUsed();
-                        if (playerStatsMemory.playerSanity < 6) {
-                            playerStatsMemory.playerSanity = 6;
+                        if (playerStatsMemory.playerSanity < settings.startingPlayerSanity) {
+                            playerStatsMemory.playerSanity = settings.startingPlayerSanity;
                         }
 
-                        if (playerStatsMemory.playerSanity >= 6) {
-                            playerStatsMemory.playerSanity = playerStatsMemory.playerSanity + 1;
+                        if (playerStatsMemory.playerSanity >= settings.startingPlayerSanity) {
+                            playerStatsMemory.playerSanity = playerStatsMemory.playerSanity + settings.sanityPotionBuff;
                         }
 
-                        playerInventoryMemory.sanityPotionAmount = playerInventoryMemory.sanityPotionAmount - 1;
+                        playerInventoryMemory.sanityPotionAmount = playerInventoryMemory.sanityPotionAmount - settings.itemSingular;
                     }
                     else {
                         showDialogue.showInfo_isItemUnavailable();
                     }
                     break;
                 case settings.useSoul:
-                    if (playerInventoryMemory.soulAmount >= 1) {
+                    if (playerInventoryMemory.soulAmount >= settings.itemSingular) {
                         enemyStatsMemory.enemyOnScreen = true;
-                        new showGraphics(floorBuilderMemory.enemy + 10, 0, floorBuilderMemory.floor, 6);
+                        new showGraphics(floorBuilderMemory.enemy+ + settings.enemyAnimationOffset, settings.noGraphics, floorBuilderMemory.floor, settings.criticalHitAnimation);
                         showDialogue.showInfo_isItemUsed();
-                        if (enemyStatsMemory.enemyHealth > 0) {
-                            enemyStatsMemory.enemyHealth = enemyStatsMemory.enemyHealth - 5;
-                            if (enemyStatsMemory.enemyHealth < 2) {
-                                enemyStatsMemory.enemyHealth = 1;
+                        if (enemyStatsMemory.enemyHealth >= settings.enemyDead) {
+                            enemyStatsMemory.enemyHealth = enemyStatsMemory.enemyHealth - settings.criticalHit;
+                            if (enemyStatsMemory.enemyHealth < settings.enemyDying) {
+                                enemyStatsMemory.enemyHealth = settings.enemyDead;
                             }
                         }
 
-                        playerInventoryMemory.soulAmount = playerInventoryMemory.soulAmount - 1;
+                        playerInventoryMemory.soulAmount = playerInventoryMemory.soulAmount - settings.itemSingular;
                     }
                     else {
                         showDialogue.showInfo_isItemUnavailable();

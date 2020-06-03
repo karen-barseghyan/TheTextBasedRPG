@@ -1,3 +1,5 @@
+import * as settings from "./settings"
+
 export class stageAdvance{
 
     stage: number;
@@ -13,7 +15,7 @@ export class stageAdvance{
          this.stage = stage;
     }
     increaseCurrentStage(): void {
-        this.stage = this.stage + 1;
+        this.stage = this.stage + settings.stageProgression;
         //console.log("działa");
    }
    

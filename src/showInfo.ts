@@ -50,9 +50,6 @@ import * as settings from "./settings"
        }
 
 
-                             // new showInfo(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-                            // showDialogue.showInfo_isFloorShown();
-
         showInfo_isPlayerReflectionShown(): void {
             (<HTMLInputElement>document.getElementById('info')).innerHTML = null;
             let shownText = dialoguebank.actions[13] + dialoguebank.sanityFormPlayer[playerStatsMemory.playerSanity];         

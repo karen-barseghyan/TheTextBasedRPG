@@ -14,13 +14,13 @@ import * as settings from "./settings";
 
 
     //Floor Building and progression
-   export let floorBuilderMemory = new floorBuilder(0,null,0,null,0,null,0,null, false, false, 0);
+   export let floorBuilderMemory = new floorBuilder(settings.noGraphics,null,settings.noGraphics,null,settings.noGraphics,null,settings.noGraphics,null, false, false, settings.noGraphics);
 
     //let stage = 1;
     export let stage = new stageAdvance(settings.startingStage);
 
     //Enemy Stats
-    export  let enemyStatsMemory = new enemyStats(1,1,1,1,false,0,false,false);
+    export  let enemyStatsMemory = new enemyStats(settings.minimumEnemyStats,settings.minimumEnemyStats,settings.minimumEnemyStats,settings.minimumEnemyStats,false,settings.noGraphics,false,false);
 
     //Starting Player Stats - changable via settings.ts:
     export  let playerStatsMemory = new playerStats(settings.startingPlayerHealth, settings.startingPlayerDefense, settings.startingPlayerStrength, settings.startingPlayerDexterity, settings.startingPlayerDefenseDebuff, settings.startingPlayerStrengthDebuff, settings.startingPlayerDexterityDebuff, settings.startingPlayerSanity, settings.startingPlayerMorality);
@@ -29,7 +29,7 @@ import * as settings from "./settings";
     export let promptControllerMemory = new promptController(true, false, settings.textSpeedPrompt);
 
     //Combat Controllers 
-    export let combatControllerMemory = new combatController(0,0);
+    export let combatControllerMemory = new combatController(settings.harmlessAttack,settings.harmlessAttack);
 
     //All Dialogues
     export  let dialoguebank = new dialogue();
@@ -53,7 +53,7 @@ import * as settings from "./settings";
     proceed?.addEventListener("click", function () { new promptCheck(stage, showDialogue) });
 
     window.onkeydown = (ev: KeyboardEvent): any => {
-        if (ev.keyCode == 13) {
+        if (ev.keyCode == settings.promptAccept) {
             new promptCheck(stage, showDialogue);
         }
     }

@@ -24,10 +24,10 @@ export class promptCheck {
         console.log(prompt);
 
         if (promptControllerMemory.allowPrompt == true && promptControllerMemory.waitForAttack == false) {
-            switch (prompt.charAt(0).toLowerCase()) {
+            switch (prompt.charAt(settings.whichLetterCheck).toLowerCase()) {
                 case settings.goDown:
                     enemyStatsMemory.enemyOnScreen = false;
-                    if (currentstage.getCurrentStage() == 100) {
+                    if (currentstage.getCurrentStage() == settings.whenVictory) {
                         //Sprawdź wygraną tylko raz
                         showDialogue.showInfo_isVictory();
                         promptControllerMemory.allowPrompt = false;
@@ -35,18 +35,18 @@ export class promptCheck {
                     }
 
 
-                    if (floorBuilderMemory.enemyIsAlive == true && playerInventoryMemory.keyAmount < 1 && currentstage.getCurrentStage() != 0 && currentstage.getCurrentStage() != 100) {
+                    if (floorBuilderMemory.enemyIsAlive == true && playerInventoryMemory.keyAmount < 1 && currentstage.getCurrentStage() != settings.noFloor && currentstage.getCurrentStage() != settings.whenVictory) {
                         showDialogue.showInfo_isBlocked();
                     }
-                    if (floorBuilderMemory.enemyIsAlive == true && playerInventoryMemory.keyAmount > 0 && currentstage.getCurrentStage() != 100) {
+                    if (floorBuilderMemory.enemyIsAlive == true && playerInventoryMemory.keyAmount >= 1 && currentstage.getCurrentStage() != settings.whenVictory) {
                         playerInventoryMemory.keyAmount = playerInventoryMemory.keyAmount - 1;
                         new setFloor(1, 0, stage);
-                        new showGraphics(0, 0, floorBuilderMemory.floor, 0);
+                        new showGraphics(settings.noGraphics, settings.noGraphics, floorBuilderMemory.floor, settings.noGraphics);
                         showDialogue.showInfo_isFloorShown();
                     }
-                    if (floorBuilderMemory.enemyIsAlive == false && currentstage.getCurrentStage() != 100) {
+                    if (floorBuilderMemory.enemyIsAlive == false && currentstage.getCurrentStage() != settings.whenVictory) {
                         new setFloor(1, 0, stage);
-                        new showGraphics(0, 0, floorBuilderMemory.floor, 0);
+                        new showGraphics(settings.noGraphics, settings.noGraphics, floorBuilderMemory.floor, settings.noGraphics);
                       showDialogue.showInfo_isFloorShown();
                      
                       
@@ -60,7 +60,7 @@ export class promptCheck {
                 if (floorBuilderMemory.enemyIsAlive==true){
                     if (enemyStatsMemory.enemyOnScreen == false) {
 
-                        new showGraphics(floorBuilderMemory.enemy, 0, floorBuilderMemory.floor, floorBuilderMemory.animation);
+                        new showGraphics(floorBuilderMemory.enemy, settings.noGraphics, floorBuilderMemory.floor, floorBuilderMemory.animation);
                         showDialogue.showInfo_isEnemyShown();
                     }
 
@@ -82,7 +82,7 @@ export class promptCheck {
                     if (floorBuilderMemory.itemIsOnGround == true) {
                         enemyStatsMemory.enemyOnScreen = false;
                         enemyStatsMemory.rummageOpen = true;
-                        new showGraphics(0, floorBuilderMemory.item, floorBuilderMemory.floor, floorBuilderMemory.animation);
+                        new showGraphics(settings.noGraphics, floorBuilderMemory.item, floorBuilderMemory.floor, floorBuilderMemory.animation);
                         showDialogue.showInfo_isItemShown();
                     }
                     break;
@@ -105,65 +105,65 @@ export class promptCheck {
                         enemyStatsMemory.rummageOpen = false;
                         floorBuilderMemory.itemIsOnGround = false;
                         showDialogue.showInfo_isItemPickedUp();
-                        new showGraphics(0, 0, floorBuilderMemory.floor, 0);
+                        new showGraphics(settings.noGraphics, settings.noGraphics, floorBuilderMemory.floor, settings.noGraphics);
                         switch (floorBuilderMemory.item) {
                             case 1:
-                                if (playerInventoryMemory.weaponLevel <= 10) {
-                                    playerInventoryMemory.weaponLevel = Math.round((Math.floor(Math.random() * currentstage.getCurrentStage()) / 2 + 2));
-                                    if (playerInventoryMemory.weaponLevel >= 10) {
-                                        playerInventoryMemory.weaponLevel = 10;
+                                if (playerInventoryMemory.weaponLevel <= settings.maxWeaponLevel) {
+                                    playerInventoryMemory.weaponLevel = Math.round((Math.floor(Math.random() * currentstage.getCurrentStage()) / settings.equipmentLevelDivider + settings.weaponLevelBase));
+                                    if (playerInventoryMemory.weaponLevel >= settings.maxWeaponLevel) {
+                                        playerInventoryMemory.weaponLevel = settings.maxWeaponLevel;
                                     }
                                 }
                                 break;
                             case 2:
-                                if (playerInventoryMemory.shieldLevel <= 5) {
-                                    playerInventoryMemory.shieldLevel = Math.round((Math.floor(Math.random() * currentstage.getCurrentStage()) / 2 + 1));
-                                    if (playerInventoryMemory.shieldLevel >= 5) {
-                                        playerInventoryMemory.shieldLevel = 5;
+                                if (playerInventoryMemory.shieldLevel <= settings.maxShieldLevel) {
+                                    playerInventoryMemory.shieldLevel = Math.round((Math.floor(Math.random() * currentstage.getCurrentStage()) / settings.equipmentLevelDivider + settings.equipmentLevelBase));
+                                    if (playerInventoryMemory.shieldLevel >= settings.maxShieldLevel) {
+                                        playerInventoryMemory.shieldLevel = settings.maxShieldLevel;
                                     }
                                 }
                                 break;
                             case 3:
-                                playerInventoryMemory.keyAmount = playerInventoryMemory.keyAmount + 1;
+                                playerInventoryMemory.keyAmount = playerInventoryMemory.keyAmount + settings.itemSingular;
                                 break;
                             case 4:
-                                if (playerInventoryMemory.ringLevel <= 4) {
-                                    playerInventoryMemory.ringLevel = Math.round((Math.floor(Math.random() * currentstage.getCurrentStage()) / 2 + 1));
-                                    if (playerInventoryMemory.ringLevel >= 4) {
-                                        playerInventoryMemory.ringLevel = 4;
+                                if (playerInventoryMemory.ringLevel <= settings.maxRingLevel) {
+                                    playerInventoryMemory.ringLevel = Math.round((Math.floor(Math.random() * currentstage.getCurrentStage()) / settings.equipmentLevelDivider + settings.equipmentLevelBase));
+                                    if (playerInventoryMemory.ringLevel >= settings.maxRingLevel) {
+                                        playerInventoryMemory.ringLevel = settings.maxRingLevel;
                                     }
                                 }
                                 break;
                             case 5:
-                                playerInventoryMemory.healthPotionAmount = playerInventoryMemory.healthPotionAmount + 1;
+                                playerInventoryMemory.healthPotionAmount = playerInventoryMemory.healthPotionAmount + settings.itemSingular;
                                 break;
                             case 6:
-                                playerInventoryMemory.soulAmount = playerInventoryMemory.soulAmount + 1;
+                                playerInventoryMemory.soulAmount = playerInventoryMemory.soulAmount + settings.itemSingular;
                                 break;
                             case 7:
-                                playerInventoryMemory.sanityPotionAmount = playerInventoryMemory.sanityPotionAmount + 1;
+                                playerInventoryMemory.sanityPotionAmount = playerInventoryMemory.sanityPotionAmount + settings.itemSingular;
                                 break;
                             case 8:
 
-                                if (playerInventoryMemory.armorLevel <= 4) {
-                                    playerInventoryMemory.armorLevel = Math.round((Math.floor(Math.random() * currentstage.getCurrentStage()) / 2 + 1));
-                                    if (playerInventoryMemory.armorLevel >= 4) {
-                                        playerInventoryMemory.armorLevel = 4;
+                                if (playerInventoryMemory.armorLevel <= settings.maxArmorLevel) {
+                                    playerInventoryMemory.armorLevel = Math.round((Math.floor(Math.random() * currentstage.getCurrentStage()) / settings.equipmentLevelDivider + settings.equipmentLevelBase));
+                                    if (playerInventoryMemory.armorLevel >= settings.maxArmorLevel) {
+                                        playerInventoryMemory.armorLevel = settings.maxArmorLevel;
                                     }
                                 }
                                 break;
                             case 9:
-                                if (playerInventoryMemory.glovesLevel <= 5) {
-                                    playerInventoryMemory.glovesLevel = Math.round((Math.floor(Math.random() * currentstage.getCurrentStage()) / 2 + 1));
-                                    if (playerInventoryMemory.glovesLevel >= 5) {
-                                        playerInventoryMemory.glovesLevel = 5;
+                                if (playerInventoryMemory.glovesLevel <= settings.maxGlovesLevel) {
+                                    playerInventoryMemory.glovesLevel = Math.round((Math.floor(Math.random() * currentstage.getCurrentStage()) / settings.equipmentLevelDivider + settings.equipmentLevelBase));
+                                    if (playerInventoryMemory.glovesLevel >= settings.maxGlovesLevel) {
+                                        playerInventoryMemory.glovesLevel = settings.maxGlovesLevel;
                                     }
                                 }
 
                                 break;
                             case 10:
-                                if (playerInventoryMemory.helmetLevel <= 4) {
-                                    playerInventoryMemory.helmetLevel = Math.round((Math.floor(Math.random() * currentstage.getCurrentStage()) / 2 + 1));
+                                if (playerInventoryMemory.helmetLevel <= settings.maxHelmetLevel) {
+                                    playerInventoryMemory.helmetLevel = Math.round((Math.floor(Math.random() * currentstage.getCurrentStage()) / settings.equipmentLevelDivider + settings.equipmentLevelBase));
                                 }
 
                                 break;
@@ -178,8 +178,7 @@ export class promptCheck {
 
                 case settings.useSanityPotion:
                     if (enemyStatsMemory.potionBackOpen == true) {
-                        enemyStatsMemory.itemToUse = 7;
-                        //new UseItemClass("sanity");
+                        enemyStatsMemory.itemToUse = settings.sanityGraphic;
                         new useItem(settings.useSanityPotion);
                         enemyStatsMemory.potionBackOpen = false;
                     }
@@ -187,8 +186,7 @@ export class promptCheck {
 
                 case settings.useSoul:
                     if (enemyStatsMemory.potionBackOpen == true) {
-                        enemyStatsMemory.itemToUse = 6;
-                        //new UseItemClass("soul");
+                        enemyStatsMemory.itemToUse = settings.soulGraphic;
                         new useItem(settings.useSoul);
                         enemyStatsMemory.potionBackOpen = false;
                     }
@@ -197,8 +195,7 @@ export class promptCheck {
 
                 case settings.useHealthPotion:
                     if (enemyStatsMemory.potionBackOpen == true) {
-                        enemyStatsMemory.itemToUse = 5;
-                        //new UseItemClass("health");
+                        enemyStatsMemory.itemToUse = settings.potionGraphic;
                         new useItem(settings.useHealthPotion);
                         enemyStatsMemory.potionBackOpen = false;
                     }
@@ -206,8 +203,8 @@ export class promptCheck {
             }
         }
         new inventory(playerInventoryMemory.hasMirror, playerInventoryMemory.armorLevel, playerInventoryMemory.helmetLevel, playerInventoryMemory.glovesLevel, playerInventoryMemory.keyAmount, playerInventoryMemory.weaponLevel, playerInventoryMemory.healthPotionAmount, playerInventoryMemory.soulAmount, playerInventoryMemory.sanityPotionAmount, playerInventoryMemory.ringLevel, playerInventoryMemory.shieldLevel);
-        if (enemyStatsMemory.enemyHealth < 2) {
-            enemyStatsMemory.enemyHealth = 1;
+        if (enemyStatsMemory.enemyHealth < settings.enemyDying) {
+            enemyStatsMemory.enemyHealth = settings.enemyDead;
             floorBuilderMemory.enemyIsAlive = false;
         }
         prompter.focus();
