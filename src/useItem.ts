@@ -76,7 +76,7 @@ export class useItem {
                             }
                         }
 
-                        new showGraphics(floorBuilderMemory.enemy + + settings.enemyAnimationOffset, settings.noGraphics, floorBuilderMemory.floor, settings.enemyAttackAnimation);
+                        new showGraphics(floorBuilderMemory.enemy + settings.enemyAnimationOffset, settings.noGraphics, floorBuilderMemory.floor, settings.enemyAttackAnimation);
                         showDialogue.showInfo_isEnemyAttacking();
                         promptControllerMemory.waitForAttack = false;
                     }
@@ -111,7 +111,7 @@ export class useItem {
             case settings.useSoul:
                 if (playerInventoryMemory.soulAmount >= settings.itemSingular) {
                     enemyStatsMemory.enemyOnScreen = true;
-                    new showGraphics(floorBuilderMemory.enemy + + settings.enemyAnimationOffset, settings.noGraphics, floorBuilderMemory.floor, settings.criticalHitAnimation);
+                    new showGraphics(floorBuilderMemory.enemy + settings.enemyAnimationOffset, settings.noGraphics, floorBuilderMemory.floor, settings.criticalHitAnimation);
                     showDialogue.showInfo_isItemUsed();
                     if (enemyStatsMemory.enemyHealth >= settings.enemyDead) {
                         enemyStatsMemory.enemyHealth = enemyStatsMemory.enemyHealth - settings.criticalHit;
